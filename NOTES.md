@@ -145,6 +145,16 @@ Example: `Swing Summit — Workshop: Connection and Musicality`
 
 ---
 
+## Slug Collision Rule (Epic 4+)
+
+Event detail page URLs are `events/{event.id}/`. The `id` field is `{kebab-event-name}-{YYYY-MM-DD}`.
+
+If two events share the same kebab name AND date (e.g., two different "Intro to WCS" classes on the same day), the second slug gets `-2` appended, the third gets `-3`, etc.
+
+For the mock fixture: all event IDs are already unique — no two events share both the same name and date. No runtime collision handling is needed at this stage. The real parser (Epic 5) must implement the deduplication logic when processing Google Sheets data.
+
+---
+
 ## Fit Signal Canonical Display Values
 
 Store in data model as display form; convert to kebab for `data-*` and URL params.

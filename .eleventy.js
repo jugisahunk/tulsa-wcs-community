@@ -10,6 +10,7 @@ export default function(eleventyConfig) {
   eleventyConfig.ignores.add(".claude/**");
 
   eleventyConfig.addPassthroughCopy("assets");
+  eleventyConfig.addPassthroughCopy("robots.txt");
 
   eleventyConfig.addCollection('events', () =>
     [...events].sort(byDateAndTime)

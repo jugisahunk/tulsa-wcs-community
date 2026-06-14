@@ -1,0 +1,80 @@
+---
+pagination:
+  data: collections.events
+  size: 1
+  alias: event
+permalink: "events/{{ event.id }}/index.html"
+---
+{% extends "base.njk" %}
+
+{% block head %}
+<link rel="stylesheet" href="/assets/css/event-detail.css">
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": {{ event.name | dump | safe }},
+  "startDate": "{{ event.date }}T{{ event.startTime }}",
+  {% if event.endTime %}"endDate": "{{ event.date }}T{{ event.endTime }}",{% endif %}
+  "location": {
+    "@type": "Place",
+    "name": {{ event.venueName | dump | safe }},
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": {{ event.venueAddress | dump | safe }}
+    }
+  },
+  {% if event.description %}"description": {{ event.description | dump | safe }},{% endif %}
+  "url": "{{ site.baseUrl }}/events/{{ event.id }}/",
+  "image": "{{ site.baseUrl }}/assets/images/event-types/{{ event.eventType | eventTypeToKebab }}.jpg"
+}
+</script>
+{% endblock %}
+
+{% block meta %}
+<meta property="og:title" content="{{ event.name }}">
+<meta property="og:description" content="{% if event.description %}{{ event.description | truncate(160) }}{% else %}{{ event.eventType }} at {{ event.venueName }} on {{ event.date | formatDate }}{% endif %}">
+<meta property="og:image" content="{{ site.baseUrl }}/assets/images/event-types/{{ event.eventType | eventTypeToKebab }}.jpg">
+<meta property="og:url" content="{{ site.baseUrl }}/events/{{ event.id }}/">
+<meta property="og:type" content="event">
+{% endblock %}
+
+{% block content %}
+<article class="event-detail">
+  <header class="event-detail__header">
+    <div class="event-type-badge event-detail__type-badge">{{ event.eventType }}</div>
+    <h1 class="event-detail__title">{{ event.name }}</h1>
+    {% if event.isRecurring %}
+    <span class="recurring-badge">recurring</span>
+    {% endif %}
+  </header>
+
+  <div class="event-detail__meta">
+    <p class="event-detail__datetime">
+      {{ event.date | formatDate }} · {{ event.startTime | formatTime }}{% if event.endTime %} – {{ event.endTime | formatTime }}{% endif %}
+    </p>
+    <p class="event-detail__venue">{{ event.venueName }}</p>
+    <p class="event-detail__address">{{ event.venueAddress }}</p>
+    <p class="event-detail__cost">{{ event.cost }}</p>
+  </div>
+
+  {% if event.fitSignals | length %}
+  <div class="event-card__chips event-detail__chips">
+    {% for signal in event.fitSignals %}
+    <span class="fit-signal-chip">{{ signal }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if event.description %}
+  <p class="event-detail__description">{{ event.description }}</p>
+  {% endif %}
+
+  {% if event.sourceUrl %}
+  <a href="{{ event.sourceUrl }}" class="event-detail__source-link" target="_blank" rel="noopener noreferrer">view organizer page →</a>
+  {% endif %}
+</article>
+{% endblock %}

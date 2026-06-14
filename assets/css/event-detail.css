@@ -1,0 +1,107 @@
+.event-detail {
+  max-width: 600px;
+}
+
+.event-detail__header {
+  position: relative;
+  padding-top: 40px;
+  padding-right: 80px;
+  margin-bottom: var(--space-lg);
+}
+
+/* Reset the absolute positioning from event-card context */
+.event-detail__type-badge {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  max-width: 80px;
+}
+
+.event-detail__title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-sm);
+}
+
+@media (min-width: 640px) {
+  .event-detail__title { font-size: 36px; }
+}
+
+.event-detail__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.event-detail__datetime {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.event-detail__venue {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.event-detail__address {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.event-detail__cost {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.event-detail__chips {
+  margin-bottom: var(--space-lg);
+}
+
+.event-detail__description {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-lg);
+}
+
+.event-detail__source-link {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-text-primary);
+  text-decoration: underline;
+  min-height: 44px;
+  line-height: 44px;
+}
+
+.event-detail__source-link:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}

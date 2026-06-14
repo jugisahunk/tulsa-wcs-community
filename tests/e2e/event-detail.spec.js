@@ -33,8 +33,9 @@ test.describe('event detail page', () => {
     const body = await page.locator('body').textContent();
     expect(body).toContain(knownEvent.venueName);
     expect(body).toContain(knownEvent.cost);
-    const year = new Date(`${knownEvent.date}T00:00:00`).getFullYear().toString();
-    expect(body).toContain(year);
+    // formatDate omits year for current-year events; verify month name is present instead
+    const month = new Date(`${knownEvent.date}T00:00:00`).toLocaleDateString('en-US', { month: 'long' });
+    expect(body).toContain(month);
   });
 
   // Task 1.6 — JSON-LD script in <head>
