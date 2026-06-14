@@ -1,6 +1,7 @@
 ---
 story_key: 2-1-tonight-view-e2e-specs
-status: ready-for-dev
+status: in-progress
+baseline_commit: d0a4df46f049213218c54d02280de34507be4a71
 ---
 
 # Story 2.1: Tonight View E2E Specs (Failing Tests First)
@@ -49,40 +50,40 @@ So that implementation is driven by the tests and every acceptance criterion has
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `tests/e2e/tonight-view.spec.js`
-  - [ ] 1.1: Assert home page loads HTTP 200 (already passes via smoke — still include for completeness)
-  - [ ] 1.2: Assert `<h1>` text is exactly "West Coast Swing in Tulsa" (already passes — still include)
-  - [ ] 1.3: Assert at least one `.event-card` element is visible (FAILS — no cards yet)
-  - [ ] 1.4: Assert today events are ordered by start time ascending — compare text of first and second `.event-card__meta` time elements
-  - [ ] 1.5: Assert each `.event-card` shows event name via `.event-card__title`
-  - [ ] 1.6: Assert each `.event-card` shows formatted time (e.g., "8:00 PM") in `.event-card__meta`
-  - [ ] 1.7: Assert each `.event-card` shows venue name in `.event-card__meta`
-  - [ ] 1.8: Assert each `.event-card` shows cost in `.event-card__meta`
-  - [ ] 1.9: Assert each `.event-card` shows an `.event-type-badge` element
-  - [ ] 1.10: Assert a recurring event card shows `.recurring-badge`
-  - [ ] 1.11: Assert a `.wcs-intro` paragraph is present on the page
+- [x] Task 1: Create `tests/e2e/tonight-view.spec.js`
+  - [x] 1.1: Assert home page loads HTTP 200 (already passes via smoke — still include for completeness)
+  - [x] 1.2: Assert `<h1>` text is exactly "West Coast Swing in Tulsa" (already passes — still include)
+  - [x] 1.3: Assert at least one `.event-card` element is visible (FAILS — no cards yet)
+  - [x] 1.4: Assert today events are ordered by start time ascending — compare text of first and second `.event-card__meta` time elements
+  - [x] 1.5: Assert each `.event-card` shows event name via `.event-card__title`
+  - [x] 1.6: Assert each `.event-card` shows formatted time (e.g., "8:00 PM") in `.event-card__meta`
+  - [x] 1.7: Assert each `.event-card` shows venue name in `.event-card__meta`
+  - [x] 1.8: Assert each `.event-card` shows cost in `.event-card__meta`
+  - [x] 1.9: Assert each `.event-card` shows an `.event-type-badge` element
+  - [x] 1.10: Assert a recurring event card shows `.recurring-badge`
+  - [x] 1.11: Assert a `.wcs-intro` paragraph is present on the page
 
-- [ ] Task 2: Create `tests/e2e/tonight-empty.spec.js`
-  - [ ] 2.1: Navigate to `/tonight-empty/` (will 404 until Story 2.3 creates the fixture)
-  - [ ] 2.2: Assert `.empty-state` container is visible
-  - [ ] 2.3: Assert text "QUIET TONIGHT." appears before the subscribe copy
-  - [ ] 2.4: Assert `[aria-hidden="true"].diamond-divider` exists between orientation text and copy
-  - [ ] 2.5: Assert locked copy text "Some of the best nights in this community are planned last minute. Subscribe — you won't want to miss them." is present
-  - [ ] 2.6: Assert `input[type="email"]` is visible
-  - [ ] 2.7: Assert `button[type="submit"]` is visible
-  - [ ] 2.8: Assert `a[href="/browse/"]` with text matching "BROWSE UPCOMING" is present
+- [x] Task 2: Create `tests/e2e/tonight-empty.spec.js`
+  - [x] 2.1: Navigate to `/tonight-empty/` (will 404 until Story 2.3 creates the fixture)
+  - [x] 2.2: Assert `.empty-state` container is visible
+  - [x] 2.3: Assert text "QUIET TONIGHT." appears before the subscribe copy
+  - [x] 2.4: Assert `[aria-hidden="true"].diamond-divider` exists between orientation text and copy
+  - [x] 2.5: Assert locked copy text "Some of the best nights in this community are planned last minute. Subscribe — you won't want to miss them." is present
+  - [x] 2.6: Assert `input[type="email"]` is visible
+  - [x] 2.7: Assert `button[type="submit"]` is visible
+  - [x] 2.8: Assert `a[href="/browse/"]` with text matching "BROWSE UPCOMING" is present
 
-- [ ] Task 3: Create `tests/e2e/mobile-layout.spec.js`
-  - [ ] 3.1: Set viewport to `{ width: 320, height: 667 }` via Playwright `use` config in the test or `page.setViewportSize()`
-  - [ ] 3.2: Assert `document.documentElement.scrollWidth <= 320` via `page.evaluate()`
-  - [ ] 3.3: Assert `.event-card` elements exist and are visible (FAILS — no cards yet)
-  - [ ] 3.4: Assert no `.event-card` has `boundingBox().width > 320` (content clipping check)
+- [x] Task 3: Create `tests/e2e/mobile-layout.spec.js`
+  - [x] 3.1: Set viewport to `{ width: 320, height: 667 }` via Playwright `use` config in the test or `page.setViewportSize()`
+  - [x] 3.2: Assert `document.documentElement.scrollWidth <= 320` via `page.evaluate()`
+  - [x] 3.3: Assert `.event-card` elements exist and are visible (FAILS — no cards yet)
+  - [x] 3.4: Assert no `.event-card` has `boundingBox().width > 320` (content clipping check)
 
-- [ ] Task 4: Confirm correct test failure state
-  - [ ] 4.1: Run `npx playwright test tonight-view` — confirm it fails on `.event-card` assertions
-  - [ ] 4.2: Run `npx playwright test tonight-empty` — confirm it fails (404 for `/tonight-empty/`)
-  - [ ] 4.3: Run `npx playwright test mobile-layout` — confirm it fails on `.event-card` assertions
-  - [ ] 4.4: Run `npx playwright test smoke` — confirm ALL smoke tests still PASS (no regressions)
+- [x] Task 4: Confirm correct test failure state
+  - [x] 4.1: Run `npx playwright test tonight-view` — confirm it fails on `.event-card` assertions
+  - [x] 4.2: Run `npx playwright test tonight-empty` — confirm it fails (404 for `/tonight-empty/`)
+  - [x] 4.3: Run `npx playwright test mobile-layout` — confirm it fails on `.event-card` assertions
+  - [x] 4.4: Run `npx playwright test smoke` — confirm ALL smoke tests still PASS (no regressions)
 
 ## Dev Notes
 
@@ -180,22 +181,27 @@ NOTES.md says `data-fit-signals` is space-separated. The Story 2.2 ACs say **com
 ## Dev Agent Record
 
 ### Implementation Plan
-(to be filled during implementation)
+Created three E2E spec files following TDD — all failing before implementation, which is correct.
 
 ### Debug Log
-(to be filled during implementation)
+- tonight-view.spec.js: 4 failed (event-card, sort order, recurring-badge, wcs-intro), 7 passed ✓
+- tonight-empty.spec.js: 7 failed (fixture page doesn't exist yet) ✓
+- mobile-layout.spec.js: 1 failed (event cards not visible), 2 passed ✓
+- smoke.spec.js: 8 passed ✓
 
 ### Completion Notes
-(to be filled during implementation)
+All three spec files created. Tests fail in expected ways — no implementation yet. Smoke tests remain green. TDD contract set for Stories 2.2 and 2.3.
 
 ## File List
 
-(to be filled during implementation)
+- tests/e2e/tonight-view.spec.js (new)
+- tests/e2e/tonight-empty.spec.js (new)
+- tests/e2e/mobile-layout.spec.js (new)
 
 ## Change Log
 
-(to be filled during implementation)
+- 2026-06-13: Created E2E spec files for tonight-view, tonight-empty, and mobile-layout tests (Story 2.1)
 
 ## Status
 
-ready-for-dev
+review

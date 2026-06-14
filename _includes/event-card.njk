@@ -1,0 +1,20 @@
+<a class="event-card"
+   href="/events/{{ event.id }}/"
+   data-event-type="{{ event.eventType | eventTypeToKebab }}"
+   data-fit-signals="{{ event.fitSignals | fitSignalsToKebab }}"
+   data-event-date="{{ event.date }}"
+   data-is-today="{{ event.isToday }}"
+   data-is-past="{{ event.isPast }}"
+   aria-label="{{ event.name }}, {{ event.date | formatDate }}, {{ event.startTime | formatTime }}, {{ event.venueName }}">
+  <div class="event-type-badge">{{ event.eventType }}</div>
+  <h2 class="event-card__title">{{ event.name }}</h2>
+  <p class="event-card__meta">{{ event.startTime | formatTime }} · {{ event.venueName }} · {{ event.cost }}</p>
+  <div class="event-card__chips">
+    {% for signal in event.fitSignals %}
+      <span class="fit-signal-chip">{{ signal }}</span>
+    {% endfor %}
+    {% if event.isRecurring %}
+      <span class="recurring-badge">recurring</span>
+    {% endif %}
+  </div>
+</a>

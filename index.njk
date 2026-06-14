@@ -1,4 +1,34 @@
 {% extends "base.njk" %}
 {% block content %}
-<h1>West Coast Swing in Tulsa</h1>
+
+<section class="hero">
+  <div aria-hidden="true" class="double-rule-ornament">
+    <div class="rule"></div>
+    <div class="rule"></div>
+  </div>
+  <h1 class="hero__title">West Coast Swing in Tulsa</h1>
+  <div aria-hidden="true" class="double-rule-ornament">
+    <div class="rule"></div>
+    <div class="rule"></div>
+  </div>
+  <p class="tonight-label">tonight</p>
+</section>
+
+{% if collections.todayEvents.length %}
+  <div class="event-list">
+    {% for event in collections.todayEvents %}
+      {% include "event-card.njk" %}
+      {% if not loop.last %}
+        <div aria-hidden="true" class="diamond-divider">◆</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% else %}
+  {% include "empty-state.njk" %}
+{% endif %}
+
+<p class="wcs-intro">West Coast Swing is a partner dance born on the West Coast in the 1940s, known for its improvisational style and connection to contemporary music. Tulsa has a small but serious scene — weekly socials, workshops with national instructors, and a community that shows up for each other.</p>
+
+{% include "subscribe-form.njk" %}
+
 {% endblock %}

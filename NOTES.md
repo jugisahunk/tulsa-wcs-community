@@ -19,7 +19,7 @@ Agent-readable reference for all naming conventions used across the project. Whe
 | Attribute | Value format |
 |---|---|
 | `data-event-type` | kebab event type (e.g. `social-dancing`) |
-| `data-fit-signals` | space-separated kebab signals (e.g. `beginner-friendly partner-welcome`) |
+| `data-fit-signals` | **comma-separated** kebab signals (e.g. `beginner-friendly,partner-welcome`) |
 | `data-event-date` | ISO date string (e.g. `2026-06-14`) |
 | `data-is-today` | `"true"` or `"false"` |
 | `data-is-past` | `"true"` or `"false"` |
@@ -118,6 +118,22 @@ Defined in `.eleventy.js`. Source data: `_data/events.mock.js` (swapped for `_da
 | `formatDateShort` | `"2026-06-14"` | `"Jun 14"` |
 | `eventTypeToKebab` | `"Social Dancing"` | `"social-dancing"` |
 | `fitSignalToKebab` | `"Beginner-friendly"` | `"beginner-friendly"` |
+| `fitSignalsToKebab` | `["Beginner-friendly","Partner-welcome"]` | `"beginner-friendly,partner-welcome"` |
+
+---
+
+## Subscribe Form Placements (FR-18)
+
+- Primary: `_includes/empty-state.njk` — shown only when no today events
+- Secondary: `index.njk` bottom of content block — shown always, below event list and wcs-intro
+
+Both use `_includes/subscribe-form.njk` partial (Buttondown embed, `jugisahunk` account).
+
+---
+
+## WCS Intro Paragraph (FR-17)
+
+Location: bottom of `index.njk` content block, before the secondary subscribe form. After the event list section.
 
 ---
 

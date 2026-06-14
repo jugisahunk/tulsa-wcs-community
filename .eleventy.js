@@ -6,6 +6,9 @@ const byDateAndTime = (a, b) => {
 };
 
 export default function(eleventyConfig) {
+  eleventyConfig.ignores.add("_bmad-output/**");
+  eleventyConfig.ignores.add(".claude/**");
+
   eleventyConfig.addPassthroughCopy("assets");
 
   eleventyConfig.addCollection('events', () =>
@@ -49,6 +52,10 @@ export default function(eleventyConfig) {
 
   eleventyConfig.addFilter('fitSignalToKebab', signal =>
     signal.toLowerCase().replace(/\s+/g, '-')
+  );
+
+  eleventyConfig.addFilter('fitSignalsToKebab', signals =>
+    signals.map(s => s.toLowerCase().replace(/\s+/g, '-')).join(',')
   );
 
   return {
