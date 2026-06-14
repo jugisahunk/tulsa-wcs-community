@@ -28,6 +28,13 @@ function applyFilters(filters) {
     card.hidden = !show;
     if (show) visible++;
   });
+  cards.forEach(card => {
+    const divider = card.nextElementSibling;
+    if (divider && divider.classList.contains('diamond-divider')) {
+      const nextCard = divider.nextElementSibling;
+      divider.hidden = card.hidden || !!(nextCard && nextCard.hidden);
+    }
+  });
   const zero = document.querySelector('.browse-zero-results');
   if (zero) zero.hidden = visible > 0;
 }
@@ -56,11 +63,12 @@ function restoreCheckboxesFromURL(filters) {
     el.checked = filters.signals.includes(el.value);
   });
   const d = document.querySelector('input[name="date"]');
-  if (d && filters.date) d.value = filters.date;
+  if (d) d.value = filters.date;
 }
 
 document.querySelector('.filter-bar__toggle')?.addEventListener('click', function () {
   const panel    = document.getElementById('filter-panel');
+  if (!panel) return;
   const expanded = this.getAttribute('aria-expanded') === 'true';
   this.setAttribute('aria-expanded', String(!expanded));
   panel.hidden = expanded;

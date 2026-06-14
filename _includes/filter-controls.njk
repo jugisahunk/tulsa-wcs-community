@@ -5,6 +5,7 @@
   <div class="filter-bar__panel" id="filter-panel" hidden>
     <fieldset class="filter-group">
       <legend class="filter-group__label">Event Type</legend>
+      {# Keep in sync with EventObject.eventType in _data/events.mock.js #}
       {% set types = [
         { label: 'Social Dancing', value: 'social-dancing' },
         { label: 'Group Lesson',   value: 'group-lesson' },
@@ -22,6 +23,7 @@
 
     <fieldset class="filter-group">
       <legend class="filter-group__label">Fit</legend>
+      {# Keep in sync with EventObject.fitSignals in _data/events.mock.js #}
       {% set signals = [
         { label: 'Beginner-friendly',     value: 'beginner-friendly' },
         { label: 'Partner-welcome',       value: 'partner-welcome' },

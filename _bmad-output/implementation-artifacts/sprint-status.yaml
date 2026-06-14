@@ -31,10 +31,10 @@ development_status:
   2-3-empty-state-and-buttondown: done
 
   # ── Epic 3: Browse & Archive Views ────────────────────────────────────────
-  3-1-browse-archive-e2e-specs: review
-  3-2-browse-view-template: review
-  3-3-client-side-filter-js: review
-  3-4-archive-view: review
+  3-1-browse-archive-e2e-specs: done
+  3-2-browse-view-template: done
+  3-3-client-side-filter-js: done
+  3-4-archive-view: done
 
   # ── Epic 4: Event Detail + SEO ────────────────────────────────────────────
   4-1-event-detail-e2e-specs: not-started

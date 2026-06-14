@@ -96,17 +96,3 @@
   margin-bottom: var(--space-md);
 }
 
-.archive-heading {
-  font-family: var(--font-heading);
-  text-transform: uppercase;
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-md);
-}
-
-.archive-empty {
-  font-family: var(--font-heading);
-  text-transform: uppercase;
-  text-align: center;
-  color: var(--color-text-muted);
-  padding: var(--space-xl) 0;
-}
