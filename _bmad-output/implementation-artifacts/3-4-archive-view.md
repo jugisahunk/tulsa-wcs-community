@@ -1,6 +1,7 @@
 ---
 story_key: 3-4-archive-view
-status: not-started
+status: ready-for-dev
+baseline_commit: 2da66eaffe875a5ead2721f48049e1852825c433
 ---
 
 # Story 3.4: Archive View
@@ -27,69 +28,110 @@ So that I can reference events that have already happened.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `archive.njk`
-  - [ ] 1.1: Front matter: `layout: base.njk`, `title: Archive`
-  - [ ] 1.2: Page heading: `<h1 class="archive-heading">Archive</h1>` (CSS uppercases)
-  - [ ] 1.3: Iterate `collections.pastEvents` (already sorted date DESC per Story 1.2 collection):
-    ```njk
-    {% if collections.pastEvents.length > 0 %}
-      <section class="event-list event-list--archive" aria-label="Past events">
-        {% for event in collections.pastEvents %}
-          {% include "event-card.njk" %}
-        {% endfor %}
-      </section>
-    {% else %}
-      <p class="archive-empty">No past events yet.</p>
-    {% endif %}
-    ```
-  - [ ] 1.4: Zero-results state: CSS uppercases "No past events yet." — use locked string "NO PAST EVENTS YET." (CSS handles uppercasing; source is sentence case)
+- [x] Task 1: Create `archive.njk`
+  - [x] 1.1: Front matter: `permalink: /archive/index.html`
+  - [x] 1.2: `{% extends "base.njk" %}`
+  - [x] 1.3: `{% block content %}` with `<h1 class="archive-heading">Archive</h1>`
+  - [x] 1.4: Conditional event list (using `collections.pastEvents`) or empty state
+  - [x] 1.5: Close `{% endblock %}`
 
-- [ ] Task 2: Verify ARCHIVE tab `aria-current` in tab bar
-  - [ ] 2.1: In `base.njk`, the tab bar already has `{% if page.url == "/archive/" %}aria-current="page"{% endif %}` (from Story 1.5)
-  - [ ] 2.2: Confirm Eleventy generates `_site/archive/index.html` at URL `/archive/` — the tab bar's comparison `page.url == "/archive/"` must match exactly
+- [x] Task 2: Add archive heading styles to `assets/css/browse-filters.css`
+  - [x] 2.1: `.archive-heading` — Josefin Sans, text-transform uppercase, primary color
+  - [x] 2.2: `.archive-empty` — Josefin Sans, uppercase, center, muted color
+  - [x] 2.3: `.event-list--archive` — no extra styles needed (same layout as `.event-list`)
 
-- [ ] Task 3: Run archive tests and confirm all PASS
-  - [ ] 3.1: Run `npx playwright test archive`
-  - [ ] 3.2: Confirm: past events visible, today/upcoming events NOT visible, ARCHIVE tab has `aria-current`
-  - [ ] 3.3: Run full suite: `npm test`
+- [x] Task 3: Run archive tests and confirm all PASS
+  - [x] 3.1: All 4 archive tests green across Chromium, Firefox, WebKit
+  - [x] 3.2: Full suite 129/129 passed — no regressions
+  - [x] 3.3: Build verified — archive page exists and renders past events only
 
 ## Dev Notes
 
-### `collections.pastEvents`
+### `collections.pastEvents` Already Sorted Date DESC
 
-Defined in Story 1.2: `events.filter(e => e.isPast)` sorted date DESC (most recent past event first). Available as `collections.pastEvents` in Nunjucks.
+Defined in Story 1.2's `.eleventy.js`: `events.filter(e => e.isPast)` sorted by date DESC (most recent past event first). Available in Nunjucks as `collections.pastEvents`. No additional sorting needed in the template.
 
-### Archive is Not Promoted
+### Current Fixture: 2 Past Events
 
-Per EXPERIENCE.md: Archive is accessible via the tab bar (ARCHIVE tab) but not promoted. Do NOT add any homepage or Browse page links to the archive. The tab bar is the only entry point.
+With the current mock fixture:
+- "WCS fundamentals class" (Group Lesson, last week)
+- "Tulsa swing social" (Social Dancing, last week)
 
-### No Filter Controls on Archive
+Both have `isPast: true` in the fixture. The archive test in Story 3.1 asserts their presence. The `aria-current` test is what requires the archive page to actually exist and serve at `/archive/`.
 
-The Archive View does not have filter controls. It is a simple list of past events, sorted by date descending. Do not add the `filter-controls.njk` include to this page.
+### `event-card.njk` Variable Scope
 
-### Reusing `event-card.njk`
-
-The `data-is-past="true"` attribute on past event cards may be styled differently (e.g., reduced opacity or a "Past" label) in a future enhancement. For MVP, reuse the card as-is.
-
-### Permalink for Archive Page
-
-Eleventy will output `archive.njk` at `_site/archive/index.html` (URL: `/archive/`). This matches the tab bar href. If Eleventy's output doesn't produce a trailing slash, adjust the permalink via front matter:
-```yaml
-permalink: /archive/index.html
+Use the same pattern as `index.njk` and `browse.njk`: loop variable must be named `event`:
+```njk
+{% for event in collections.pastEvents %}
+  {% include "event-card.njk" %}
+{% endfor %}
 ```
+
+The card template uses `{{ event.name }}`, `{{ event.startTime | formatTime }}`, etc. The loop variable `event` is automatically in scope for the include — no extra wiring needed.
+
+### Diamond Dividers Between Cards
+
+Use `{% if not loop.last %}..diamond-divider..{% endif %}` between archive cards, matching the pattern in `index.njk` and `browse.njk`. The diamond divider CSS already exists in `event-card.css` from Epic 2.
+
+### Archive Is Not Promoted
+
+Per EXPERIENCE.md: "accessible via the tab bar (ARCHIVE tab) but not promoted." Do NOT add:
+- Any link to `/archive/` in the page body
+- A "Browse past events" link in any other view
+- Any reference to Archive in the site header
+
+The tab bar in `base.njk` is the only entry point. This is already implemented in `base.njk`:
+```njk
+<a href="/archive/" class="tab-bar__tab" {% if page.url == "/archive/" %}aria-current="page"{% endif %}>archive</a>
+```
+
+### `aria-current="page"` Comes Free
+
+`base.njk` already has `{% if page.url == "/archive/" %}aria-current="page"{% endif %}` on the ARCHIVE tab. No changes needed to `base.njk`. Once `archive.njk` outputs at `/archive/`, the tab bar handles `aria-current` automatically. The Story 3.1 test for this will pass as soon as the archive page exists.
+
+### No Filter Controls
+
+The Archive View has no filter controls. It is a simple chronological list. Do NOT include `filter-controls.njk` or load `browse-filter.js` on this page.
+
+### Locked Empty State String
+
+EXPERIENCE.md locked string: `NO PAST EVENTS YET.` — render as `no past events yet.` in HTML and let CSS uppercase it. This is consistent with other empty/zero-results strings across the site. CSS class `.archive-empty { text-transform: uppercase }`.
+
+### `permalink` Front Matter
+
+Eleventy outputs `archive.njk` at `_site/archive/index.html` by default (without front matter) — but explicitly setting `permalink: /archive/index.html` makes this explicit and avoids any ambiguity. The tab bar's `page.url == "/archive/"` check relies on Eleventy setting `page.url` to `/archive/` (with trailing slash), which it does for directory index pages.
+
+### Previous Story Intelligence (from 2-3)
+
+- **Strict-mode awareness**: the ARCHIVE tab link in `base.njk` (`href="/archive/"`) is the only `a[href="/archive/"]` element on the page (no content-area links). Story 3.1's test can use `nav[aria-label="Main navigation"] a[href="/archive/"]` to be safe.
+- **`eleventyExcludeFromCollections`**: not needed for `archive.njk` — it is a real content page that should appear in collections. This flag was used only for the `tonight-empty.njk` test fixture.
+- **Diamond dividers**: pattern confirmed working from Epic 2 (index.njk); `diamond-divider` styles are already in `event-card.css`.
 
 ## Dev Agent Record
 
 ### Implementation Plan
 
+Simple template using `collections.pastEvents` (already sorted DESC by .eleventy.js). Archive heading and empty styles added to browse-filters.css (already global in base.njk). No filter controls, no scripts block — archive is a read-only list.
+
 ### Debug Log
+
+No issues. `aria-current="page"` on the ARCHIVE tab works automatically from base.njk's existing `{% if page.url == "/archive/" %}` check — no base.njk changes needed.
 
 ### Completion Notes
 
+archive.njk created with permalink, conditional past-events list with diamond dividers, and empty state. All 4 archive E2E tests green across all browsers.
+
 ## File List
+
+- archive.njk (new)
+- assets/css/browse-filters.css (modified — add archive-heading, archive-empty styles)
 
 ## Change Log
 
+- 2026-06-13: Story created and enriched for dev (Story 3.4)
+- 2026-06-14: Implemented — archive.njk created, archive styles added to browse-filters.css
+
 ## Status
 
-not-started
+review

@@ -1,0 +1,112 @@
+.filter-bar {
+  margin: var(--space-lg) 0;
+}
+
+.filter-bar__toggle {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  min-height: 44px;
+  padding: 0;
+  opacity: 0.6;
+}
+
+.filter-bar__toggle:hover {
+  opacity: 1;
+}
+
+.filter-bar__panel {
+  padding: var(--space-md) 0;
+}
+
+.filter-group {
+  border: none;
+  padding: 0;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.filter-group__label {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.filter-option__label {
+  font-size: 13px;
+  color: var(--color-text-primary);
+  opacity: 0.6;
+}
+
+.filter-option__input:checked + .filter-option__label {
+  opacity: 1;
+}
+
+.filter-date__input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-surface-border);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  min-height: 44px;
+  width: 100%;
+}
+
+.filter-bar__clear {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.filter-bar__clear:hover {
+  text-decoration: underline;
+}
+
+.browse-zero-results {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-xl) 0;
+}
+
+.browse-heading {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.archive-heading {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.archive-empty {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-xl) 0;
+}

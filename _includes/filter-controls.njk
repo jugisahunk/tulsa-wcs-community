@@ -1,0 +1,47 @@
+<div class="filter-bar" id="filter-bar">
+  <button class="filter-bar__toggle" aria-expanded="false" aria-controls="filter-panel">
+    filter events ›
+  </button>
+  <div class="filter-bar__panel" id="filter-panel" hidden>
+    <fieldset class="filter-group">
+      <legend class="filter-group__label">Event Type</legend>
+      {% set types = [
+        { label: 'Social Dancing', value: 'social-dancing' },
+        { label: 'Group Lesson',   value: 'group-lesson' },
+        { label: 'Workshop',       value: 'workshop' },
+        { label: 'Competition',    value: 'competition' },
+        { label: 'Convention',     value: 'convention' }
+      ] %}
+      {% for t in types %}
+        <label class="filter-option">
+          <input type="checkbox" name="type" value="{{ t.value }}" class="filter-option__input">
+          <span class="filter-option__label">{{ t.label }}</span>
+        </label>
+      {% endfor %}
+    </fieldset>
+
+    <fieldset class="filter-group">
+      <legend class="filter-group__label">Fit</legend>
+      {% set signals = [
+        { label: 'Beginner-friendly',     value: 'beginner-friendly' },
+        { label: 'Partner-welcome',       value: 'partner-welcome' },
+        { label: 'Skill level target',    value: 'skill-level-target' },
+        { label: 'Instructor present',    value: 'instructor-present' },
+        { label: 'Special guest present', value: 'special-guest-present' }
+      ] %}
+      {% for s in signals %}
+        <label class="filter-option">
+          <input type="checkbox" name="signal" value="{{ s.value }}" class="filter-option__input">
+          <span class="filter-option__label">{{ s.label }}</span>
+        </label>
+      {% endfor %}
+    </fieldset>
+
+    <div class="filter-group">
+      <label for="filter-date" class="filter-group__label">Date</label>
+      <input type="date" id="filter-date" name="date" class="filter-date__input">
+    </div>
+
+    <a href="/browse/" class="filter-bar__clear" hidden>clear filters</a>
+  </div>
+</div>

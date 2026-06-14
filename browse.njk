@@ -1,0 +1,25 @@
+---
+permalink: /browse/index.html
+---
+{% extends "base.njk" %}
+
+{% block content %}
+<h1 class="browse-heading">Upcoming</h1>
+
+{% include "filter-controls.njk" %}
+
+<p class="browse-zero-results" hidden>No events match your filters.</p>
+
+<section class="event-list" aria-label="Upcoming events">
+  {% for event in collections.upcomingEvents %}
+    {% include "event-card.njk" %}
+    {% if not loop.last %}
+      <div aria-hidden="true" class="diamond-divider">◆</div>
+    {% endif %}
+  {% endfor %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/assets/js/browse-filter.js" defer></script>
+{% endblock %}

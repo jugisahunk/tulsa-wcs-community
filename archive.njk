@@ -1,0 +1,21 @@
+---
+permalink: /archive/index.html
+---
+{% extends "base.njk" %}
+
+{% block content %}
+<h1 class="archive-heading">Archive</h1>
+
+{% if collections.pastEvents.length %}
+  <section class="event-list event-list--archive" aria-label="Past events">
+    {% for event in collections.pastEvents %}
+      {% include "event-card.njk" %}
+      {% if not loop.last %}
+        <div aria-hidden="true" class="diamond-divider">◆</div>
+      {% endif %}
+    {% endfor %}
+  </section>
+{% else %}
+  <p class="archive-empty">No past events yet.</p>
+{% endif %}
+{% endblock %}

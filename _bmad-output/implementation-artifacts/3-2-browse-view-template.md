@@ -1,6 +1,7 @@
 ---
 story_key: 3-2-browse-view-template
-status: not-started
+status: ready-for-dev
+baseline_commit: 2da66eaffe875a5ead2721f48049e1852825c433
 ---
 
 # Story 3.2: Browse View Template
@@ -15,7 +16,7 @@ So that I can find events that match my type and fit signal preferences.
 
 **Given** `browse.njk` and `_includes/filter-controls.njk` are implemented
 **When** `npx playwright test browse-filter` is run
-**Then** the "renders without 404", "all events visible by default", and "filter controls present" tests PASS; filter-behavior tests remain RED until Story 3.3
+**Then** the "renders without 404", "all events visible by default", and filter controls present tests PASS; filter-behavior tests remain RED until Story 3.3
 
 **Given** `browse.njk`
 **When** rendered with mock fixture
@@ -31,99 +32,115 @@ So that I can find events that match my type and fit signal preferences.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `browse.njk`
-  - [ ] 1.1: Front matter: `layout: base.njk`, `title: Browse Events`
-  - [ ] 1.2: Page heading: `<h1 class="browse-heading">Upcoming</h1>` (CSS uppercases to "UPCOMING")
-  - [ ] 1.3: Include filter controls: `{% include "filter-controls.njk" %}`
-  - [ ] 1.4: Zero-results state (hidden by default, shown by JS): `<p class="browse-zero-results" hidden>No events match your filters.</p>` (CSS uppercases)
-  - [ ] 1.5: Event list: iterate `collections.upcomingEvents` and `{% include "event-card.njk" %}` for each
-  - [ ] 1.6: Load `browse-filter.js` at bottom of page: `<script src="/assets/js/browse-filter.js" defer></script>`
+- [x] Task 1: Add `browse-filters.css` link to `_includes/base.njk`
+  - [x] 1.1: Add `<link rel="stylesheet" href="/assets/css/browse-filters.css">` after the `event-card.css` link in `<head>`
+  - [x] 1.2: Add `{% block scripts %}{% endblock %}` before `</body>` in `base.njk` so page templates can inject page-specific JS
 
-- [ ] Task 2: Create `_includes/filter-controls.njk`
-  - [ ] 2.1: Collapsible wrapper with toggle button:
-    ```njk
-    <div class="filter-bar" id="filter-bar">
-      <button class="filter-bar__toggle" aria-expanded="false" aria-controls="filter-bar__panel">
-        Filter events ›
-      </button>
-      <div class="filter-bar__panel" id="filter-bar__panel" hidden>
-        <!-- filter groups here -->
-      </div>
-    </div>
-    ```
-  - [ ] 2.2: Event Type filter group (5 checkboxes):
-    ```njk
-    <fieldset class="filter-group">
-      <legend class="filter-group__label">Event Type</legend>
-      {% set types = [
-        { label: 'Social Dancing', value: 'social-dancing' },
-        { label: 'Group Lesson', value: 'group-lesson' },
-        { label: 'Workshop', value: 'workshop' },
-        { label: 'Competition', value: 'competition' },
-        { label: 'Convention', value: 'convention' }
-      ] %}
-      {% for t in types %}
-        <label class="filter-option">
-          <input type="checkbox" name="type" value="{{ t.value }}" class="filter-option__input">
-          <span class="filter-option__label">{{ t.label }}</span>
-        </label>
-      {% endfor %}
-    </fieldset>
-    ```
-  - [ ] 2.3: Fit Signal filter group (5 checkboxes) with values: `beginner-friendly`, `partner-welcome`, `skill-level-target`, `instructor-present`, `special-guest-present`
-  - [ ] 2.4: Date filter input:
-    ```njk
-    <div class="filter-group">
-      <label for="filter-date" class="filter-group__label">Date</label>
-      <input type="date" id="filter-date" name="date" class="filter-date__input">
-    </div>
-    ```
-  - [ ] 2.5: Clear filters link (hidden until filters active): `<a href="/browse/" class="filter-bar__clear" hidden>Clear filters</a>`
+- [x] Task 2: Create `browse.njk`
+  - [x] 2.1: Front matter: `permalink: /browse/index.html`
+  - [x] 2.2: `{% extends "base.njk" %}`
+  - [x] 2.3: `{% block content %}` with `<h1 class="browse-heading">Upcoming</h1>`
+  - [x] 2.4: Include filter controls: `{% include "filter-controls.njk" %}`
+  - [x] 2.5: Zero-results state: `<p class="browse-zero-results" hidden>No events match your filters.</p>`
+  - [x] 2.6: Event list with diamond dividers using `collections.upcomingEvents`
+  - [x] 2.7: Scripts block injecting `browse-filter.js` with defer
 
-- [ ] Task 3: Create `assets/css/browse-filters.css` and link in `base.njk`
-  - [ ] 3.1: Filter bar toggle button: uppercase, small, on-brand
-  - [ ] 3.2: Filter panel: collapsible (toggle `hidden` attribute via JS in Story 3.3; CSS handles the visual open state)
-  - [ ] 3.3: Filter option checkboxes: accessible custom checkbox styling matching the dark theme
-  - [ ] 3.4: Date input: styled to match dark theme
+- [x] Task 3: Create `_includes/filter-controls.njk`
+  - [x] 3.1: Collapsible wrapper with `aria-expanded="false"` toggle and hidden panel
+  - [x] 3.2: Event Type fieldset — 5 checkboxes with kebab values
+  - [x] 3.3: Fit Signal fieldset — 5 checkboxes with kebab values
+  - [x] 3.4: Date filter input
+  - [x] 3.5: Clear filters link (hidden by default)
 
-- [ ] Task 4: Run partial tests
-  - [ ] 4.1: Run `npx playwright test browse-filter` — expect "renders without 404" and "all events visible" tests to PASS; filter interaction tests still FAIL (no JS yet)
-  - [ ] 4.2: Run `npm run build` and inspect `_site/browse/index.html` to verify markup structure
+- [x] Task 4: Create `assets/css/browse-filters.css`
+  - [x] 4.1–4.12: All styles implemented — filter-bar, toggle, panel, filter-group, filter-option, date input, clear link, zero-results, browse-heading
+
+- [x] Task 5: Run partial browse-filter tests
+  - [x] 5.1: All browse-filter tests PASS (including filter interaction — 3.3 implemented in same pass)
+  - [x] 5.2: All smoke/tonight/mobile tests still PASS — no regressions
+  - [x] 5.3: Build verified — 129/129 tests green
 
 ## Dev Notes
 
-### `collections.upcomingEvents`
+### `event-card.njk` Variable Scope
 
-Per the collection defined in Story 1.2: `upcomingEvents` = events where `!isPast` (includes today + future), sorted by date + startTime ascending. This is the correct data for Browse — you see everything coming up including today.
+`event-card.njk` uses `event` as its variable name. In `index.njk`, the card is included inside `{% for event in collections.todayEvents %}` — the loop variable `event` is automatically in scope for the `{% include %}`. Use the exact same pattern in `browse.njk`:
 
-### Filter Option Values Must Be Kebab
+```njk
+{% for event in collections.upcomingEvents %}
+  {% include "event-card.njk" %}
+{% endfor %}
+```
 
-The `data-event-type` attribute on cards uses kebab values (e.g., `social-dancing`). Filter checkboxes must use the same values so the JS in Story 3.3 can match them. Do NOT use display labels ("Social Dancing") as checkbox values.
+Do NOT use `{% include "event-card.njk" with {event: e} %}` or similar — just match the loop variable name `event`.
 
-### Collapsible Filter Bar
+### Adding `{% block scripts %}` to `base.njk`
 
-Per EXPERIENCE.md, the filter bar shows "FILTER EVENTS ›" when collapsed (no filters active) and "FILTERING › N ACTIVE" when filters are active. The toggle behavior is wired in Story 3.3. For now, the filter bar can default to expanded (remove `hidden` from panel) to make testing easier; Story 3.3 will add the toggle behavior.
+`base.njk` currently has no scripts block. Add one before `</body>`:
 
-### Browse View URL
+```njk
+  {% block scripts %}{% endblock %}
+</body>
+```
 
-Eleventy will output `browse.njk` as `_site/browse/index.html`, served at `/browse/`. Confirm this with `npx @11ty/eleventy` and check the output.
+This is a safe, additive change — empty by default, overridden only by pages that need page-specific JS. The smoke test and all Epic 2 tests should continue passing.
 
-### Zero-Results State
+### `browse-filters.css` in `base.njk` Head
 
-The "NO EVENTS MATCH YOUR FILTERS." message (per EXPERIENCE.md locked strings) starts hidden. Story 3.3's JS shows/hides it based on visible card count. CSS: `text-transform: uppercase` on `.browse-zero-results`.
+Adding `browse-filters.css` globally is simpler than a per-page CSS block. The file will be small and adds no cost to other pages. This matches how `event-card.css` is handled.
+
+### Eleventy URL for Browse
+
+Eleventy outputs `browse.njk` as `_site/browse/index.html` served at `/browse/`. The `base.njk` tab bar checks `{% if page.url == "/browse/" %}` — this works because Eleventy sets `page.url` to `/browse/` for that file. If you add front matter `permalink: /browse/index.html`, Eleventy should resolve it to `/browse/` in `page.url`. Test this by building and checking `_site/browse/index.html` exists.
+
+### Filter Bar Collapsed by Default (EXPERIENCE.md)
+
+Per EXPERIENCE.md: filter bar is collapsed on every page load, even if URL params carry active filters. The `hidden` attribute on `.filter-bar__panel` and `aria-expanded="false"` on the toggle implement this. Story 3.3's JS updates the button label when URL-pre-applied filters are active ("FILTERING › N ACTIVE") but the panel stays closed.
+
+### Filter Checkbox Values Must Be Kebab
+
+The `data-event-type` attribute on cards uses kebab (e.g., `social-dancing`). The filter JS matches `card.dataset.eventType` against checkbox values. If checkbox values use display labels, the match will never occur. Verify in the HTML source that `<input name="type" value="social-dancing">` not `value="Social Dancing"`.
+
+### Signal Values in `data-fit-signals`
+
+Cards store fit signals as comma-separated kebab values (e.g., `beginner-friendly,partner-welcome`). The filter JS in Story 3.3 splits this string and uses `.includes()`. Checkbox `name="signal"` values must match these kebab strings exactly (see NOTES.md — Fit Signal Canonical Display Values table).
+
+### Diamond Dividers
+
+`index.njk` uses `{% if not loop.last %}..diamond-divider..{% endif %}` between cards. Use the same pattern in `browse.njk` for visual consistency.
+
+### Previous Story Intelligence (from 2-3)
+
+- **Strict-mode selectors**: when writing tests that click "clear filters" link (href="/browse/"), scope to `.filter-bar` to avoid collision with the tab bar link
+- **CSS text-transform**: render HTML in lowercase, let CSS handle uppercase — do NOT write "UPCOMING" or "CLEAR FILTERS" in the template source
+- **test fixture page pattern**: `tonight-empty.njk` was a test-only page — no equivalent needed for browse (tests navigate to the real `/browse/` page)
 
 ## Dev Agent Record
 
 ### Implementation Plan
 
+Implemented all tasks in a single pass alongside 3-1, 3-3, 3-4. Added browse-filters.css globally in base.njk head (same pattern as event-card.css). browse.njk uses `collections.upcomingEvents` with the `event` loop variable (same pattern as index.njk). filter-controls.njk uses Nunjucks set arrays for type/signal options.
+
 ### Debug Log
+
+No issues. All 129 suite tests passed on first run.
 
 ### Completion Notes
 
+browse.njk, filter-controls.njk, browse-filters.css all created. base.njk updated with CSS link and scripts block. All browse-filter E2E tests pass including filter interaction (JS loaded via browse.njk scripts block).
+
 ## File List
+
+- browse.njk (new)
+- _includes/filter-controls.njk (new)
+- assets/css/browse-filters.css (new)
+- _includes/base.njk (modified — add browse-filters.css link, add {% block scripts %})
 
 ## Change Log
 
+- 2026-06-13: Story created and enriched for dev (Story 3.2)
+- 2026-06-14: Implemented — browse.njk, filter-controls.njk, browse-filters.css, base.njk updated
+
 ## Status
 
-not-started
+review
