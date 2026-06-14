@@ -17,8 +17,8 @@ permalink: "events/{{ event.id }}/index.html"
   "@context": "https://schema.org",
   "@type": "Event",
   "name": {{ event.name | dump | safe }},
-  "startDate": "{{ event.date }}T{{ event.startTime }}",
-  {% if event.endTime %}"endDate": "{{ event.date }}T{{ event.endTime }}",{% endif %}
+  "startDate": "{{ event.date }}T{{ event.startTime }}{{ event.date | eventTzOffset }}",
+  {% if event.endTime %}"endDate": "{{ event.date }}T{{ event.endTime }}{{ event.date | eventTzOffset }}",{% endif %}
   "location": {
     "@type": "Place",
     "name": {{ event.venueName | dump | safe }},
@@ -45,7 +45,7 @@ permalink: "events/{{ event.id }}/index.html"
 {% block content %}
 <article class="event-detail">
   <header class="event-detail__header">
-    <div class="event-type-badge event-detail__type-badge">{{ event.eventType }}</div>
+    <div class="event-detail__type-badge">{{ event.eventType }}</div>
     <h1 class="event-detail__title">{{ event.name }}</h1>
     {% if event.isRecurring %}
     <span class="recurring-badge">recurring</span>
@@ -62,7 +62,7 @@ permalink: "events/{{ event.id }}/index.html"
   </div>
 
   {% if event.fitSignals | length %}
-  <div class="event-card__chips event-detail__chips">
+  <div class="event-detail__chips">
     {% for signal in event.fitSignals %}
     <span class="fit-signal-chip">{{ signal }}</span>
     {% endfor %}

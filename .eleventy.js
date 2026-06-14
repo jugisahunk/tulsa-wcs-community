@@ -59,6 +59,16 @@ export default function(eleventyConfig) {
     signals.map(s => s.toLowerCase().replace(/\s+/g, '-')).join(',')
   );
 
+  eleventyConfig.addFilter('eventTzOffset', dateStr => {
+    const d = new Date(dateStr + 'T12:00:00');
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Chicago',
+      timeZoneName: 'short'
+    }).formatToParts(d);
+    const tzName = parts.find(p => p.type === 'timeZoneName')?.value;
+    return tzName === 'CST' ? '-06:00' : '-05:00';
+  });
+
   return {
     dir: {
       input: ".",
