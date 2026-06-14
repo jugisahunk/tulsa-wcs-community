@@ -7,7 +7,7 @@
 #   done:         Reviewed and accepted
 
 project: wcs-events
-last_updated: 2026-06-13  # Epic 1 fully reviewed and done
+last_updated: 2026-06-13  # Epic 2 stories created and ready for dev
 
 # Epic 1 runs SERIALLY — all other epics block on this epic being done.
 # After each Story 1.x is reviewed + approved, advance the next to ready-for-dev.
@@ -26,9 +26,9 @@ development_status:
   1-5-bottom-tab-bar-navigation: done
 
   # ── Epic 2: Tonight View ──────────────────────────────────────────────────
-  2-1-tonight-view-e2e-specs: not-started
-  2-2-tonight-view-template-and-event-card: not-started
-  2-3-empty-state-and-buttondown: not-started
+  2-1-tonight-view-e2e-specs: ready-for-dev
+  2-2-tonight-view-template-and-event-card: ready-for-dev
+  2-3-empty-state-and-buttondown: ready-for-dev
 
   # ── Epic 3: Browse & Archive Views ────────────────────────────────────────
   3-1-browse-archive-e2e-specs: not-started
