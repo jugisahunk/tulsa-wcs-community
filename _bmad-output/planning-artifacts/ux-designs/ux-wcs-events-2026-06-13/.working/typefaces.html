@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typeface Options — WCS Events</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Serif+Display&family=Libre+Baskerville:wght@400;700&family=Spectral:wght@300;400&family=DM+Sans:wght@400;500&family=Inter:wght@400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0d0d0f;
+  color: #f0eeea;
+  font-family: 'DM Sans', sans-serif;
+  padding: 48px 24px;
+  min-height: 100vh;
+}
+
+h2.page-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #555;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.panel {
+  background: #101214;
+  border: 1px solid rgba(240, 238, 234, 0.12);
+  border-radius: 4px;
+  padding: 24px;
+  width: 100%;
+}
+
+.panel-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.hero-h1 {
+  line-height: 1.1;
+  color: #f0eeea;
+  margin-bottom: 20px;
+}
+
+.hero-h1.cormorant {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 38px;
+}
+
+.hero-h1.dm-serif {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: 36px;
+}
+
+.hero-h1.libre {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 34px;
+}
+
+.hero-h1.spectral {
+  font-family: 'Spectral', serif;
+  font-weight: 300;
+  font-size: 37px;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(240, 238, 234, 0.10);
+  margin-bottom: 20px;
+}
+
+.event-card {
+  border: 1px solid rgba(240, 238, 234, 0.12);
+  border-radius: 3px;
+  padding: 14px 16px;
+  background: #13151a;
+}
+
+.pill {
+  display: inline-block;
+  border: 1px solid rgba(240, 238, 234, 0.35);
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240, 238, 234, 0.7);
+  padding: 2px 8px;
+  margin-bottom: 10px;
+}
+
+.pill.dm { font-family: 'DM Sans', sans-serif; }
+.pill.inter { font-family: 'Inter', sans-serif; }
+
+.card-title {
+  color: #f0eeea;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.card-title.cormorant { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 21px; }
+.card-title.dm-serif  { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 20px; }
+.card-title.libre     { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 18px; }
+.card-title.spectral  { font-family: 'Spectral', serif; font-weight: 400; font-size: 20px; }
+
+.card-meta {
+  font-size: 12px;
+  color: #666;
+}
+.card-meta.dm    { font-family: 'DM Sans', sans-serif; font-weight: 400; }
+.card-meta.inter { font-family: 'Inter', sans-serif; font-weight: 400; }
+
+.personality {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #888;
+  margin-top: 14px;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<h2 class="page-title">Typeface Options — WCS Events · Direction B</h2>
+
+<div class="grid">
+
+  <!-- Option 1: Cormorant Garamond -->
+  <div class="panel">
+    <p class="panel-label">Option 1 — Cormorant Garamond</p>
+    <h1 class="hero-h1 cormorant">West Coast Swing in Tulsa</h1>
+    <div class="divider"></div>
+    <div class="event-card">
+      <span class="pill dm">Social Dancing</span>
+      <p class="card-title cormorant">Tulsa Swing Social</p>
+      <p class="card-meta dm">8:00 PM · Cain's Ballroom · Free</p>
+    </div>
+    <p class="personality">Delicate hairline strokes with deep contrast — feels like the opening credits of an art-house dance film. Adds a touch of old-world romance that could read as elegant or precious depending on execution.</p>
+  </div>
+
+  <!-- Option 2: DM Serif Display -->
+  <div class="panel">
+    <p class="panel-label">Option 2 — DM Serif Display</p>
+    <h1 class="hero-h1 dm-serif">West Coast Swing in Tulsa</h1>
+    <div class="divider"></div>
+    <div class="event-card">
+      <span class="pill dm">Social Dancing</span>
+      <p class="card-title dm-serif">Tulsa Swing Social</p>
+      <p class="card-meta dm">8:00 PM · Cain's Ballroom · Free</p>
+    </div>
+    <p class="personality">Purposefully designed for screens — confident strokes, open apertures, no fussiness. Feels like a well-designed editorial magazine that also happens to know how to have a good time.</p>
+  </div>
+
+  <!-- Option 3: Libre Baskerville -->
+  <div class="panel">
+    <p class="panel-label">Option 3 — Libre Baskerville</p>
+    <h1 class="hero-h1 libre">West Coast Swing in Tulsa</h1>
+    <div class="divider"></div>
+    <div class="event-card">
+      <span class="pill inter">Social Dancing</span>
+      <p class="card-title libre">Tulsa Swing Social</p>
+      <p class="card-meta inter">8:00 PM · Cain's Ballroom · Free</p>
+    </div>
+    <p class="personality">Sturdy, authoritative, and immediately legible — the workhorse of the group with quiet dignity. Less glamorous than the others but earns trust fast; feels like a venue that's been around long enough to know what it's doing.</p>
+  </div>
+
+  <!-- Option 4: Spectral -->
+  <div class="panel">
+    <p class="panel-label">Option 4 — Spectral</p>
+    <h1 class="hero-h1 spectral">West Coast Swing in Tulsa</h1>
+    <div class="divider"></div>
+    <div class="event-card">
+      <span class="pill inter">Social Dancing</span>
+      <p class="card-title spectral">Tulsa Swing Social</p>
+      <p class="card-meta inter">8:00 PM · Cain's Ballroom · Free</p>
+    </div>
+    <p class="personality">Sharp, slightly compressed, and unapologetically editorial — closest in spirit to a cultural listings publication or arts broadsheet. The narrow proportions give it density without crowding, which suits the blueprint aesthetic well.</p>
+  </div>
+
+</div>
+
+</body>
+</html>

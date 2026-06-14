@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WCS Events — Design Directions</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Sans:wght@300;400;500&family=DM+Serif+Display&family=Inter:wght@300;400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #1a1a1a;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  padding: 40px 20px 60px;
+  min-height: 100vh;
+}
+
+h2.page-title {
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 48px;
+}
+
+.directions-row {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.direction-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex: 0 0 auto;
+  width: 375px;
+  max-width: 100%;
+}
+
+.direction-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  align-self: flex-start;
+}
+
+.direction-rationale {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.4);
+  align-self: flex-start;
+  max-width: 375px;
+}
+
+/* Phone frame */
+.phone-frame {
+  width: 375px;
+  min-height: 700px;
+  border-radius: 36px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.phone-notch {
+  width: 120px;
+  height: 28px;
+  background: #000;
+  border-radius: 0 0 16px 16px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.phone-screen {
+  width: 100%;
+  min-height: 700px;
+  padding-top: 28px;
+  overflow: hidden;
+}
+
+/* ===================== DIRECTION A — VELVET ===================== */
+.velvet-screen {
+  background: #0f0d0b;
+  padding: 28px 0 40px;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.velvet-phone {
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 6px rgba(255,255,255,0.04), 0 40px 80px rgba(0,0,0,0.8);
+}
+
+.velvet-header {
+  padding: 48px 28px 36px;
+}
+
+.velvet-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.velvet-tonight-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.velvet-cards {
+  padding: 0 28px;
+}
+
+.velvet-card {
+  padding: 0 0 40px;
+}
+
+.velvet-card + .velvet-card {
+  padding-top: 4px;
+}
+
+.velvet-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.velvet-time-suffix {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.4);
+  margin-left: 4px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+.velvet-event-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-top: 8px;
+}
+
+.velvet-meta {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.velvet-meta-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.velvet-meta-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  min-width: 44px;
+}
+
+.velvet-meta-value {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+}
+
+.velvet-tags {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.velvet-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  padding-bottom: 1px;
+}
+
+.velvet-badge-recurring {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-top: 6px;
+  display: block;
+}
+
+/* ===================== DIRECTION B — BLUEPRINT ===================== */
+.blueprint-screen {
+  background: #101214;
+  padding: 28px 0 40px;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.blueprint-phone {
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 0 0 6px rgba(255,255,255,0.03), 0 40px 80px rgba(0,0,0,0.9);
+}
+
+.blueprint-header {
+  padding: 44px 20px 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 0;
+}
+
+.blueprint-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.15;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.blueprint-tonight-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.blueprint-tonight-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.blueprint-count {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+}
+
+.blueprint-cards {
+  padding: 0 20px;
+}
+
+.blueprint-card {
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 14px 16px 16px;
+  margin-top: 12px;
+  position: relative;
+}
+
+.blueprint-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.blueprint-event-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #ffffff;
+  flex: 1;
+}
+
+.blueprint-type-pill {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 3px 7px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.blueprint-time-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.blueprint-time {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.blueprint-separator {
+  width: 1px;
+  height: 14px;
+  background: rgba(255,255,255,0.2);
+}
+
+.blueprint-venue {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+
+.blueprint-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.blueprint-cost {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.05em;
+}
+
+.blueprint-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.blueprint-tag {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 2px 5px;
+}
+
+.blueprint-badge-recurring {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+}
+
+/* ===================== DIRECTION C — MARQUEE ===================== */
+.marquee-screen {
+  background: #141210;
+  padding: 28px 0 40px;
+  font-family: 'Inter', sans-serif;
+}
+
+.marquee-phone {
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 0 0 6px rgba(255,255,255,0.02), 0 40px 80px rgba(0,0,0,0.85);
+}
+
+.marquee-header {
+  padding: 52px 24px 32px;
+}
+
+.marquee-header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: 46px;
+  line-height: 1.0;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.marquee-tonight-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-top: 16px;
+  display: block;
+}
+
+.marquee-cards {
+  padding: 0 24px;
+}
+
+.marquee-card {
+  padding: 28px 0 0;
+}
+
+.marquee-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.18);
+  margin: 0;
+}
+
+.marquee-card:first-child {
+  padding-top: 20px;
+}
+
+.marquee-event-name {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.1;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  margin-top: 4px;
+}
+
+.marquee-subline {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.marquee-detail {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.38);
+}
+
+.marquee-dot {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
+.marquee-cost {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+}
+
+.marquee-tags-row {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.marquee-tag {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.28);
+  text-transform: uppercase;
+}
+
+.marquee-badge-recurring {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+  margin-top: 6px;
+  display: block;
+}
+
+.marquee-card-bottom-pad {
+  padding-bottom: 28px;
+}
+
+@media (max-width: 900px) {
+  .directions-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<h2 class="page-title">West Coast Swing in Tulsa &mdash; UI Design Directions</h2>
+
+<div class="directions-row">
+
+  <!-- ======== DIRECTION A: VELVET ======== -->
+  <div class="direction-column">
+    <span class="direction-label">A &mdash; Velvet</span>
+    <p class="direction-rationale">Typography carries every hierarchy decision — time numerals tower over everything, event name follows in measured serif weight. No surfaces, no borders; only whitespace and contrast, like a printed program for an upscale jazz supper club.</p>
+    <div class="phone-frame velvet-phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen velvet-screen">
+
+        <div class="velvet-header">
+          <span class="velvet-tonight-label">Tonight</span>
+          <h1>West Coast<br>Swing in Tulsa</h1>
+        </div>
+
+        <div class="velvet-cards">
+
+          <!-- Card 1 -->
+          <div class="velvet-card">
+            <div class="velvet-time">7:00<span class="velvet-time-suffix">pm</span></div>
+            <div class="velvet-event-name">Tulsa Swing Social</div>
+            <div class="velvet-meta">
+              <div class="velvet-meta-row">
+                <span class="velvet-meta-label">Venue</span>
+                <span class="velvet-meta-value">Cain's Ballroom</span>
+              </div>
+              <div class="velvet-meta-row">
+                <span class="velvet-meta-label">Cost</span>
+                <span class="velvet-meta-value">Free</span>
+              </div>
+            </div>
+            <div class="velvet-tags">
+              <span class="velvet-tag">Beginner-friendly</span>
+              <span class="velvet-tag">Partner welcome</span>
+            </div>
+            <span class="velvet-badge-recurring">&#8635; Recurring weekly</span>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="velvet-card">
+            <div class="velvet-time">8:00<span class="velvet-time-suffix">pm</span></div>
+            <div class="velvet-event-name">Beginner WCS Drop-In</div>
+            <div class="velvet-meta">
+              <div class="velvet-meta-row">
+                <span class="velvet-meta-label">Venue</span>
+                <span class="velvet-meta-value">Arthur Murray Tulsa</span>
+              </div>
+              <div class="velvet-meta-row">
+                <span class="velvet-meta-label">Cost</span>
+                <span class="velvet-meta-value">$10</span>
+              </div>
+            </div>
+            <div class="velvet-tags">
+              <span class="velvet-tag">Beginner-friendly</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="velvet-card">
+            <div class="velvet-time" style="font-size:28px; line-height:1.2; padding-top:4px;">All Day</div>
+            <div class="velvet-event-name">Oklahoma WCS Championship</div>
+            <div class="velvet-meta">
+              <div class="velvet-meta-row">
+                <span class="velvet-meta-label">Venue</span>
+                <span class="velvet-meta-value">Cox Convention Center</span>
+              </div>
+              <div class="velvet-meta-row">
+                <span class="velvet-meta-label">Cost</span>
+                <span class="velvet-meta-value">$45</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== DIRECTION B: BLUEPRINT ======== -->
+  <div class="direction-column">
+    <span class="direction-label">B &mdash; Blueprint</span>
+    <p class="direction-rationale">Event name leads each card — time is prominent but secondary, contained within a tight, precise grid. Thin 1px warm-white borders give the schedule the crisp authority of a contemporary arts venue's digital board without sacrificing density.</p>
+    <div class="phone-frame blueprint-phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen blueprint-screen">
+
+        <div class="blueprint-header">
+          <h1>West Coast Swing<br>in Tulsa</h1>
+          <div class="blueprint-tonight-row">
+            <span class="blueprint-tonight-label">Tonight&rsquo;s Schedule</span>
+            <span class="blueprint-count">3 events</span>
+          </div>
+        </div>
+
+        <div class="blueprint-cards">
+
+          <!-- Card 1 -->
+          <div class="blueprint-card">
+            <div class="blueprint-card-top">
+              <span class="blueprint-event-name">Tulsa Swing Social</span>
+              <span class="blueprint-type-pill">Social</span>
+            </div>
+            <div class="blueprint-time-row">
+              <span class="blueprint-time">7:00 PM</span>
+              <div class="blueprint-separator"></div>
+              <span class="blueprint-venue">Cain's Ballroom</span>
+            </div>
+            <div class="blueprint-bottom-row">
+              <span class="blueprint-cost">Free</span>
+              <div class="blueprint-tags">
+                <span class="blueprint-tag">Beginner-friendly</span>
+                <span class="blueprint-tag">Partner welcome</span>
+              </div>
+            </div>
+            <span class="blueprint-badge-recurring">&#8635; Recurring</span>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="blueprint-card">
+            <div class="blueprint-card-top">
+              <span class="blueprint-event-name">Beginner WCS Drop-In</span>
+              <span class="blueprint-type-pill">Class</span>
+            </div>
+            <div class="blueprint-time-row">
+              <span class="blueprint-time">8:00 PM</span>
+              <div class="blueprint-separator"></div>
+              <span class="blueprint-venue">Arthur Murray Tulsa</span>
+            </div>
+            <div class="blueprint-bottom-row">
+              <span class="blueprint-cost">$10</span>
+              <div class="blueprint-tags">
+                <span class="blueprint-tag">Beginner-friendly</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="blueprint-card">
+            <div class="blueprint-card-top">
+              <span class="blueprint-event-name">Oklahoma WCS Championship</span>
+              <span class="blueprint-type-pill">Competition</span>
+            </div>
+            <div class="blueprint-time-row">
+              <span class="blueprint-time">All Day</span>
+              <div class="blueprint-separator"></div>
+              <span class="blueprint-venue">Cox Convention Center</span>
+            </div>
+            <div class="blueprint-bottom-row">
+              <span class="blueprint-cost">$45</span>
+              <div class="blueprint-tags"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== DIRECTION C: MARQUEE ======== -->
+  <div class="direction-column">
+    <span class="direction-label">C &mdash; Marquee</span>
+    <p class="direction-rationale">Each event name spans the full width in cinematic display serif — the h1 is especially large and unhurried. Time, venue, and cost whisper below in fine sans-serif, separated by thin horizontal rules, evoking the marquee outside a theatre where the name always comes first.</p>
+    <div class="phone-frame marquee-phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen marquee-screen">
+
+        <div class="marquee-header">
+          <h1>West Coast<br>Swing in<br>Tulsa</h1>
+          <span class="marquee-tonight-label">Tonight</span>
+        </div>
+
+        <div class="marquee-cards">
+
+          <!-- Card 1 -->
+          <div class="marquee-divider"></div>
+          <div class="marquee-card">
+            <div class="marquee-event-name">Tulsa Swing Social</div>
+            <div class="marquee-subline">
+              <span class="marquee-detail">7:00 PM</span>
+              <span class="marquee-dot"></span>
+              <span class="marquee-detail">Cain's Ballroom</span>
+              <span class="marquee-dot"></span>
+              <span class="marquee-cost">Free</span>
+            </div>
+            <div class="marquee-tags-row">
+              <span class="marquee-tag">Beginner-friendly</span>
+              <span class="marquee-tag">Partner welcome</span>
+            </div>
+            <span class="marquee-badge-recurring">&#8635; Recurring</span>
+          </div>
+          <div class="marquee-card-bottom-pad"></div>
+
+          <!-- Card 2 -->
+          <div class="marquee-divider"></div>
+          <div class="marquee-card">
+            <div class="marquee-event-name">Beginner WCS Drop-In</div>
+            <div class="marquee-subline">
+              <span class="marquee-detail">8:00 PM</span>
+              <span class="marquee-dot"></span>
+              <span class="marquee-detail">Arthur Murray Tulsa</span>
+              <span class="marquee-dot"></span>
+              <span class="marquee-cost">$10</span>
+            </div>
+            <div class="marquee-tags-row">
+              <span class="marquee-tag">Beginner-friendly</span>
+            </div>
+          </div>
+          <div class="marquee-card-bottom-pad"></div>
+
+          <!-- Card 3 -->
+          <div class="marquee-divider"></div>
+          <div class="marquee-card">
+            <div class="marquee-event-name">Oklahoma WCS Championship</div>
+            <div class="marquee-subline">
+              <span class="marquee-detail">All Day</span>
+              <span class="marquee-dot"></span>
+              <span class="marquee-detail">Cox Convention Center</span>
+              <span class="marquee-dot"></span>
+              <span class="marquee-cost">$45</span>
+            </div>
+          </div>
+          <div class="marquee-card-bottom-pad"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

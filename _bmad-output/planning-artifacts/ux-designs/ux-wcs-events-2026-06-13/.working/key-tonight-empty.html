@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WCS Tulsa — Tonight Empty</title>
+<style>
+/* DESIGN TOKENS: bg, surface, text-primary, text-muted, gold-rule, gold-badge-border, gold-tab-active, card-border, tab-bar-bg */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Josefin+Sans:wght@300&display=swap');
+
+:root {
+  --bg:               #101214;
+  --surface:          #16181b;
+  --text-primary:     #f0eeea;
+  --text-muted:       rgba(240, 238, 234, 0.5);
+  --gold-rule:        rgba(201, 168, 76, 0.25);
+  --gold-badge-border: rgba(201, 168, 76, 0.28);
+  --gold-tab-active:  rgba(201, 168, 76, 0.30);
+  --card-border:      rgba(240, 238, 234, 0.12);
+  --tab-bar-bg:       #0d0f11;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0a0a0c;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 24px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+}
+
+/* ── PHONE FRAME ── */
+.phone {
+  width: 390px;
+  height: 820px;
+  background: var(--bg);
+  border-radius: 4px;
+  border: 1px solid rgba(240, 238, 234, 0.10);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 40px auto;
+  box-shadow: 0 32px 96px rgba(0, 0, 0, 0.75);
+}
+
+/* ── HEADER STRIP ── */
+.header-strip {
+  height: 48px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(240, 238, 234, 0.06);
+}
+
+.site-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+}
+
+/* ── SCROLL AREA ── */
+.phone-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 72px;
+  scrollbar-width: none;
+}
+.phone-scroll::-webkit-scrollbar { display: none; }
+
+/* ── DOUBLE RULE ── */
+.double-rule {
+  position: relative;
+  height: 9px;
+  margin: 0 20px;
+}
+.double-rule::before,
+.double-rule::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gold-rule);
+}
+.double-rule::before { top: 0; }
+.double-rule::after  { top: 8px; }
+
+/* ── HERO ── */
+.hero {
+  padding-top: 40px;
+  padding-bottom: 0;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.15;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  padding: 12px 20px;
+}
+
+.hero-gap-top    { height: 12px; }
+.hero-gap-bottom { height: 12px; }
+.hero-gap-label  { height: 20px; }
+
+.section-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  padding: 32px 20px 0;
+  text-align: center;
+}
+
+.empty-copy {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  color: var(--text-primary);
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* ── SUBSCRIBE FORM ── */
+.subscribe-form {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.email-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(240, 238, 234, 0.3);
+  outline: none;
+  padding: 10px 0;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+.email-input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-gap { height: 12px; }
+
+.subscribe-btn {
+  width: 100%;
+  background: var(--text-primary);
+  color: #101214;
+  border: none;
+  border-radius: 3px;
+  padding: 12px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+  text-align: center;
+  -webkit-appearance: none;
+}
+
+/* ── BROWSE LINK ── */
+.browse-link-wrap {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.browse-link {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* ── BOTTOM TAB BAR ── */
+.tab-bar {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: var(--tab-bar-bg);
+  border-top: 1px solid rgba(240, 238, 234, 0.08);
+  display: flex;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  position: relative;
+  cursor: pointer;
+}
+
+.tab.active {
+  color: var(--text-primary);
+}
+
+.tab.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold-tab-active);
+}
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- Header Strip -->
+  <div class="header-strip">
+    <span class="site-label">WCS Tulsa</span>
+  </div>
+
+  <!-- Scrollable Content -->
+  <div class="phone-scroll">
+
+    <!-- Hero (identical to key-tonight.html) -->
+    <div class="hero">
+      <div class="hero-gap-top"></div>
+      <div class="double-rule" aria-hidden="true"></div>
+      <div class="hero-gap-top"></div>
+      <h1>West Coast Swing in Tulsa</h1>
+      <div class="hero-gap-bottom"></div>
+      <div class="double-rule" aria-hidden="true"></div>
+      <div class="hero-gap-label"></div>
+      <div class="section-label">Tonight</div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state">
+
+      <div style="height: 28px;"></div>
+      <div style="font-family: 'Josefin Sans', sans-serif; font-weight: 300; font-size: 16px; text-transform: uppercase; letter-spacing: 0.2em; color: #f0eeea; text-align: center;">Quiet Tonight.</div>
+      <div style="height: 20px;"></div>
+      <div style="font-family: 'Josefin Sans', sans-serif; font-size: 10px; color: rgba(201, 168, 76, 0.25); text-align: center;">&#9670;</div>
+      <div style="height: 20px;"></div>
+
+      <p class="empty-copy">Some of the best nights in this community are planned last minute. Subscribe — you won't want to miss them.</p>
+
+      <div class="subscribe-form">
+        <input
+          class="email-input"
+          type="email"
+          placeholder="YOUR EMAIL"
+          aria-label="Email address"
+        />
+        <div class="form-gap"></div>
+        <button class="subscribe-btn" type="button">Subscribe</button>
+      </div>
+
+      <div class="browse-link-wrap">
+        <span class="browse-link">Or Browse Upcoming Events &rarr;</span>
+      </div>
+
+    </div><!-- /empty-state -->
+
+  </div><!-- /phone-scroll -->
+
+  <!-- Bottom Tab Bar -->
+  <div class="tab-bar">
+    <div class="tab active">Tonight</div>
+    <div class="tab">Browse</div>
+    <div class="tab">Archive</div>
+  </div>
+
+</div><!-- /phone -->
+
+</body>
+</html>

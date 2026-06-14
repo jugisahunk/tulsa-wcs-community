@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  {% block schema %}{% endblock %}
+  {% block meta %}{% endblock %}
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-header__title">{{ site.name }}</a>
+  </header>
+
+  <main class="site-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <nav class="tab-bar" aria-label="Main navigation">
+    <a href="/" class="tab-bar__tab" {% if page.url == "/" %}aria-current="page"{% endif %}>tonight</a>
+    <a href="/browse/" class="tab-bar__tab" {% if page.url == "/browse/" %}aria-current="page"{% endif %}>browse</a>
+    <a href="/archive/" class="tab-bar__tab" {% if page.url == "/archive/" %}aria-current="page"{% endif %}>archive</a>
+  </nav>
+
+  <footer class="site-footer">
+    <p class="site-footer__attribution">A community resource for West Coast Swing dancers in Tulsa. Maintained by Jason Knight and Jubilee [last name TBD].</p>
+    <nav class="site-footer__links">
+      <a href="#" class="site-footer__link">Submit an event</a>
+      <a href="#" class="site-footer__link">Request a change</a>
+    </nav>
+  </footer>
+</body>
+</html>

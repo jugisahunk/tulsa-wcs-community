@@ -1,0 +1,51 @@
+# WCS Events Sprint Status
+# STATUS DEFINITIONS:
+#   not-started:  Story exists but blocked on epic prerequisites
+#   ready-for-dev: Ready for dev agent to pick up
+#   in-progress:  Currently being developed
+#   review:       Dev complete, awaiting code review
+#   done:         Reviewed and accepted
+
+project: wcs-events
+last_updated: 2026-06-13  # Epic 1 fully reviewed and done
+
+# Epic 1 runs SERIALLY — all other epics block on this epic being done.
+# After each Story 1.x is reviewed + approved, advance the next to ready-for-dev.
+# All 5 are pre-set to ready-for-dev so the dev agent can work through them automatically.
+
+# Epics 2–4 can run in PARALLEL once Epic 1 is done.
+# Epic 5 is parallel after Epic 1 but must coordinate with Epic 6 for secrets.
+# Epic 6 depends on Epic 5 (service account secret) but can otherwise start after Epic 1.
+
+development_status:
+  # ── Epic 1: Foundation & Test Infrastructure ──────────────────────────────
+  1-1-eleventy-project-initialization: done
+  1-2-event-data-model-and-mock-fixture: done
+  1-3-base-layout-css-foundation-naming-conventions: done
+  1-4-test-infrastructure: done
+  1-5-bottom-tab-bar-navigation: done
+
+  # ── Epic 2: Tonight View ──────────────────────────────────────────────────
+  2-1-tonight-view-e2e-specs: not-started
+  2-2-tonight-view-template-and-event-card: not-started
+  2-3-empty-state-and-buttondown: not-started
+
+  # ── Epic 3: Browse & Archive Views ────────────────────────────────────────
+  3-1-browse-archive-e2e-specs: not-started
+  3-2-browse-view-template: not-started
+  3-3-client-side-filter-js: not-started
+  3-4-archive-view: not-started
+
+  # ── Epic 4: Event Detail + SEO ────────────────────────────────────────────
+  4-1-event-detail-e2e-specs: not-started
+  4-2-event-detail-page-schema-og-sitemap: not-started
+
+  # ── Epic 5: Data Pipeline ─────────────────────────────────────────────────
+  5-1-data-transformation-unit-tests: not-started
+  5-2-google-sheets-service-account-api: not-started
+  5-3-swap-mock-data-for-real-data: not-started
+
+  # ── Epic 6: Build Pipeline & Production ───────────────────────────────────
+  6-1-github-actions-cicd: not-started
+  6-2-google-apps-script-form-trigger: not-started
+  6-3-footer-links-and-plausible-analytics: not-started

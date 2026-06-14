@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WCS Tulsa — Art Deco UI Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0c;
+    color: #f0eeea;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 48px 24px 64px;
+  }
+
+  .page-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 0.2em;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+
+  .stage {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .variant-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .variant-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  /* ─── PHONE FRAME ─── */
+  .phone {
+    width: 375px;
+    height: 780px;
+    background: #101214;
+    border-radius: 40px;
+    border: 1.5px solid rgba(240,238,234,0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+  }
+
+  /* notch */
+  .phone::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 28px;
+    background: #0a0a0c;
+    border-radius: 0 0 18px 18px;
+    z-index: 10;
+  }
+
+  /* ─── PHONE INNER SCROLL AREA ─── */
+  .phone-inner {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-top: 36px; /* clear notch */
+  }
+
+  .phone-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 20px 16px;
+    scrollbar-width: none;
+  }
+  .phone-content::-webkit-scrollbar { display: none; }
+
+  /* ─── SITE HEADER ─── */
+  .site-header {
+    padding: 12px 20px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(240,238,234,0.08);
+  }
+
+  .site-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #f0eeea;
+  }
+
+  .header-date {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,238,234,0.35);
+  }
+
+  /* ─── DOUBLE RULE ─── */
+  .double-rule {
+    position: relative;
+    height: 7px;
+    margin: 0;
+  }
+  .double-rule::before,
+  .double-rule::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(240,238,234,0.18);
+  }
+  .double-rule::before { top: 0; }
+  .double-rule::after  { top: 4px; }
+
+  /* gold variant of double-rule */
+  .double-rule-gold::before,
+  .double-rule-gold::after {
+    background: rgba(201,168,76,0.28);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 20px 0 16px;
+  }
+
+  .hero-headline {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.22;
+    color: #f0eeea;
+    letter-spacing: 0.01em;
+    padding: 14px 0 12px;
+  }
+
+  .hero-subline {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(240,238,234,0.38);
+    margin-top: 10px;
+  }
+
+  /* ─── SECTION DIVIDER ─── */
+  .section-gap { height: 14px; }
+
+  /* ─── EVENT CARD ─── */
+  .event-card {
+    border: 1px solid rgba(240,238,234,0.12);
+    border-radius: 4px;
+    padding: 14px 14px 12px;
+    margin-bottom: 0;
+  }
+
+  .card-name {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #f0eeea;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    margin-bottom: 8px;
+  }
+
+  .card-meta {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(240,238,234,0.42);
+    margin-bottom: 9px;
+    line-height: 1.5;
+  }
+
+  .card-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .badge {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(240,238,234,0.55);
+    border: 1px solid rgba(240,238,234,0.2);
+    border-radius: 2px;
+    padding: 2px 7px 1px;
+  }
+
+  .badge-gold {
+    border-color: rgba(201,168,76,0.32);
+    color: rgba(201,168,76,0.7);
+  }
+
+  .badge-fit {
+    border: none;
+    color: rgba(240,238,234,0.35);
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* ─── DIAMOND DIVIDER ─── */
+  .diamond-divider {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 8px;
+    color: rgba(240,238,234,0.22);
+    letter-spacing: 0.1em;
+  }
+
+  .diamond-divider-gold {
+    color: rgba(201,168,76,0.3);
+  }
+
+  /* ─── BOTTOM TAB BAR ─── */
+  .tab-bar {
+    height: 58px;
+    border-top: 1px solid rgba(240,238,234,0.1);
+    display: flex;
+    align-items: stretch;
+    flex-shrink: 0;
+    background: #101214;
+  }
+
+  .tab-bar-inner {
+    display: flex;
+    width: 100%;
+  }
+
+  /* double-rule on top of tab bar — applied as extra element */
+  .tab-bar-rule {
+    position: relative;
+  }
+  .tab-bar-rule::before,
+  .tab-bar-rule::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+  }
+  .tab-bar-rule::before { background: rgba(240,238,234,0.1); }
+  .tab-bar-rule::after  { top: 3px; background: rgba(240,238,234,0.05); }
+
+  .tab-bar-rule-gold::before { background: rgba(201,168,76,0.22); }
+  .tab-bar-rule-gold::after  { background: rgba(201,168,76,0.12); }
+
+  .tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(240,238,234,0.3);
+    padding-top: 4px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .tab.active {
+    color: #f0eeea;
+  }
+
+  .tab-active-line {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: rgba(240,238,234,0.7);
+  }
+
+  .tab-active-line-gold {
+    background: rgba(201,168,76,0.7);
+  }
+
+  /* ─── RATIONALE ─── */
+  .rationale {
+    width: 375px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 1.6;
+    color: #666;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  @media (max-width: 900px) {
+    .stage { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<p class="page-title">WCS Tulsa &nbsp;·&nbsp; Art Deco UI Concepts &nbsp;·&nbsp; 2026-06-13</p>
+
+<div class="stage">
+
+  <!-- ════════════════════════════════════════
+       VARIANT A — GEOMETRIC
+  ════════════════════════════════════════ -->
+  <div class="variant-wrapper">
+    <div class="variant-label">A &mdash; Geometric</div>
+
+    <div class="phone">
+      <!-- Notch rendered via ::before -->
+
+      <div class="phone-inner">
+
+        <!-- Site Header -->
+        <div class="site-header">
+          <span class="site-title">WCS Tulsa</span>
+          <span class="header-date">Fri · Jun 13</span>
+        </div>
+
+        <!-- Scrollable content -->
+        <div class="phone-content">
+
+          <!-- Hero -->
+          <div class="hero">
+            <div class="double-rule"></div>
+            <h1 class="hero-headline">West Coast&nbsp;Swing<br>in Tulsa</h1>
+            <div class="double-rule"></div>
+            <div class="hero-subline">Tonight</div>
+          </div>
+
+          <div class="section-gap"></div>
+
+          <!-- Card 1 -->
+          <div class="event-card">
+            <div class="card-name">Tulsa Swing Social</div>
+            <div class="card-meta">8:00 PM &nbsp;·&nbsp; Cain's Ballroom &nbsp;·&nbsp; Free</div>
+            <div class="card-badges">
+              <span class="badge">Social Dancing</span>
+              <span class="badge">Recurring</span>
+              <span class="badge badge-fit">Beginner-Friendly</span>
+            </div>
+          </div>
+
+          <div class="diamond-divider">◆</div>
+
+          <!-- Card 2 -->
+          <div class="event-card">
+            <div class="card-name">Beginner WCS Drop-In</div>
+            <div class="card-meta">7:00 PM &nbsp;·&nbsp; Arthur Murray Tulsa &nbsp;·&nbsp; $10</div>
+            <div class="card-badges">
+              <span class="badge">Group Lesson</span>
+              <span class="badge badge-fit">Partner-Welcome</span>
+            </div>
+          </div>
+
+          <div class="diamond-divider">◆</div>
+
+          <!-- Card 3 -->
+          <div class="event-card">
+            <div class="card-name">Oklahoma WCS Championship</div>
+            <div class="card-meta">All Day &nbsp;·&nbsp; Cox Convention Center &nbsp;·&nbsp; $45</div>
+            <div class="card-badges">
+              <span class="badge">Competition</span>
+            </div>
+          </div>
+
+          <div style="height:20px;"></div>
+
+        </div><!-- /phone-content -->
+
+        <!-- Tab Bar -->
+        <div class="tab-bar tab-bar-rule">
+          <div class="tab-bar-inner">
+            <div class="tab active">
+              <div class="tab-active-line"></div>
+              Tonight
+            </div>
+            <div class="tab">Browse</div>
+            <div class="tab">Archive</div>
+          </div>
+        </div>
+
+      </div><!-- /phone-inner -->
+    </div><!-- /phone -->
+
+    <p class="rationale">
+      Discipline without ornament: geometry and letterform carry the entire Art Deco argument.
+      Nothing here a 1930s Tulsa architect couldn't have approved.
+    </p>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       VARIANT B — GILDED
+  ════════════════════════════════════════ -->
+  <div class="variant-wrapper">
+    <div class="variant-label">B &mdash; Gilded</div>
+
+    <div class="phone">
+
+      <div class="phone-inner">
+
+        <!-- Site Header -->
+        <div class="site-header">
+          <span class="site-title">WCS Tulsa</span>
+          <span class="header-date">Fri · Jun 13</span>
+        </div>
+
+        <!-- Scrollable content -->
+        <div class="phone-content">
+
+          <!-- Hero -->
+          <div class="hero">
+            <div class="double-rule double-rule-gold"></div>
+            <h1 class="hero-headline">West Coast&nbsp;Swing<br>in Tulsa</h1>
+            <div class="double-rule double-rule-gold"></div>
+            <div class="hero-subline">Tonight</div>
+          </div>
+
+          <div class="section-gap"></div>
+
+          <!-- Card 1 -->
+          <div class="event-card">
+            <div class="card-name">Tulsa Swing Social</div>
+            <div class="card-meta">8:00 PM &nbsp;·&nbsp; Cain's Ballroom &nbsp;·&nbsp; Free</div>
+            <div class="card-badges">
+              <span class="badge badge-gold">Social Dancing</span>
+              <span class="badge">Recurring</span>
+              <span class="badge badge-fit">Beginner-Friendly</span>
+            </div>
+          </div>
+
+          <div class="diamond-divider diamond-divider-gold">◆</div>
+
+          <!-- Card 2 -->
+          <div class="event-card">
+            <div class="card-name">Beginner WCS Drop-In</div>
+            <div class="card-meta">7:00 PM &nbsp;·&nbsp; Arthur Murray Tulsa &nbsp;·&nbsp; $10</div>
+            <div class="card-badges">
+              <span class="badge badge-gold">Group Lesson</span>
+              <span class="badge badge-fit">Partner-Welcome</span>
+            </div>
+          </div>
+
+          <div class="diamond-divider diamond-divider-gold">◆</div>
+
+          <!-- Card 3 -->
+          <div class="event-card">
+            <div class="card-name">Oklahoma WCS Championship</div>
+            <div class="card-meta">All Day &nbsp;·&nbsp; Cox Convention Center &nbsp;·&nbsp; $45</div>
+            <div class="card-badges">
+              <span class="badge badge-gold">Competition</span>
+            </div>
+          </div>
+
+          <div style="height:20px;"></div>
+
+        </div><!-- /phone-content -->
+
+        <!-- Tab Bar with gold double-rule -->
+        <div class="tab-bar tab-bar-rule tab-bar-rule-gold">
+          <div class="tab-bar-inner">
+            <div class="tab active">
+              <div class="tab-active-line tab-active-line-gold"></div>
+              Tonight
+            </div>
+            <div class="tab">Browse</div>
+            <div class="tab">Archive</div>
+          </div>
+        </div>
+
+      </div><!-- /phone-inner -->
+    </div><!-- /phone -->
+
+    <p class="rationale">
+      The same geometry, but the rule lines and diamond ornaments catch a faint bronze-gold light —
+      like gilded lettering glimpsed across a dark lobby. NOTE: relaxes the PRD no-accent-hue constraint.
+    </p>
+  </div>
+
+</div><!-- /stage -->
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "wcs-events",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "test": "vitest run && playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jugisahunk/tulsa-wcs-community.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/jugisahunk/tulsa-wcs-community/issues"
+  },
+  "homepage": "https://github.com/jugisahunk/tulsa-wcs-community#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@playwright/test": "^1.60.0",
+    "vitest": "^4.1.8"
+  }
+}
