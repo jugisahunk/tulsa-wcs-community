@@ -26,9 +26,9 @@ development_status:
   1-5-bottom-tab-bar-navigation: done
 
   # ── Epic 2: Tonight View ──────────────────────────────────────────────────
-  2-1-tonight-view-e2e-specs: review
-  2-2-tonight-view-template-and-event-card: review
-  2-3-empty-state-and-buttondown: review
+  2-1-tonight-view-e2e-specs: done
+  2-2-tonight-view-template-and-event-card: done
+  2-3-empty-state-and-buttondown: done
 
   # ── Epic 3: Browse & Archive Views ────────────────────────────────────────
   3-1-browse-archive-e2e-specs: not-started

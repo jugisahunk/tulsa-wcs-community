@@ -1,6 +1,6 @@
 ---
 story_key: 2-1-tonight-view-e2e-specs
-status: in-progress
+status: done
 baseline_commit: d0a4df46f049213218c54d02280de34507be4a71
 ---
 
@@ -204,4 +204,4 @@ All three spec files created. Tests fail in expected ways — no implementation 
 
 ## Status
 
-review
+done

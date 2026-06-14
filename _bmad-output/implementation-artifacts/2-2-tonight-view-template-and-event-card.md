@@ -1,6 +1,6 @@
 ---
 story_key: 2-2-tonight-view-template-and-event-card
-status: in-progress
+status: done
 baseline_commit: d0a4df46f049213218c54d02280de34507be4a71
 ---
 
@@ -346,4 +346,4 @@ All Story 2.2 ACs satisfied. tonight-view (11/11 pass), mobile-layout (3/3 pass)
 
 ## Status
 
-review
+done

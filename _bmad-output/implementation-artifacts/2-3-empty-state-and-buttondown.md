@@ -1,6 +1,6 @@
 ---
 story_key: 2-3-empty-state-and-buttondown
-status: in-progress
+status: done
 baseline_commit: d0a4df46f049213218c54d02280de34507be4a71
 ---
 
@@ -229,4 +229,4 @@ All Story 2.3 ACs satisfied. 29/29 tests pass across all four suites. Build clea
 
 ## Status
 
-review
+done
