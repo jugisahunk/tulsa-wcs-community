@@ -11,6 +11,8 @@ test('empty state container is visible', async ({ page }) => {
 test('"QUIET TONIGHT." text appears before subscribe copy', async ({ page }) => {
   const headline = await page.locator('.empty-state__headline').boundingBox();
   const copy = await page.locator('.empty-state__copy').boundingBox();
+  expect(headline).not.toBeNull();
+  expect(copy).not.toBeNull();
   expect(headline.y).toBeLessThan(copy.y);
 });
 

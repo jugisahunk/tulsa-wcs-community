@@ -17,11 +17,12 @@ test('event cards are visible at 320px', async ({ page }) => {
 
 test('no event card content is clipped at 320px', async ({ page }) => {
   await page.goto('/');
+  const container = await page.locator('main.site-main').boundingBox();
   const cards = page.locator('.event-card');
   const count = await cards.count();
   for (let i = 0; i < count; i++) {
     const box = await cards.nth(i).boundingBox();
     expect(box).not.toBeNull();
-    expect(box.width).toBeLessThanOrEqual(320);
+    expect(box.width).toBeLessThanOrEqual(container.width);
   }
 });
