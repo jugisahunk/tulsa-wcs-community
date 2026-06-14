@@ -1,6 +1,6 @@
 ---
 story_key: 4-2-event-detail-page-schema-og-sitemap
-status: review
+status: done
 baseline_commit: 9b7e416240e20bcd920b4ed79f5f8b149e3aec9e
 ---
 

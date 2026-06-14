@@ -1,6 +1,6 @@
 ---
 story_key: 4-1-event-detail-e2e-specs
-status: review
+status: done
 baseline_commit: 3565f2e0969e7b53047558ca5216f41482ac7221
 ---
 
