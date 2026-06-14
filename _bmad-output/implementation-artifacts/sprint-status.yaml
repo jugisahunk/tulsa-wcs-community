@@ -7,7 +7,7 @@
 #   done:         Reviewed and accepted
 
 project: wcs-events
-last_updated: 2026-06-14  # Epic 3 all stories implemented and in review
+last_updated: 2026-06-14  # Epic 4 story 4-1 complete and in review
 
 # Epic 1 runs SERIALLY — all other epics block on this epic being done.
 # After each Story 1.x is reviewed + approved, advance the next to ready-for-dev.
@@ -37,7 +37,7 @@ development_status:
   3-4-archive-view: done
 
   # ── Epic 4: Event Detail + SEO ────────────────────────────────────────────
-  4-1-event-detail-e2e-specs: not-started
+  4-1-event-detail-e2e-specs: review
   4-2-event-detail-page-schema-og-sitemap: not-started
 
   # ── Epic 5: Data Pipeline ─────────────────────────────────────────────────
