@@ -7,7 +7,7 @@
 #   done:         Reviewed and accepted
 
 project: wcs-events
-last_updated: 2026-06-14  # Epic 4 story 4-1 complete and in review
+last_updated: 2026-06-14  # Epic 4 done; Epic 5 in progress (5-1 done, 5-2 ready)
 
 # Epic 1 runs SERIALLY — all other epics block on this epic being done.
 # After each Story 1.x is reviewed + approved, advance the next to ready-for-dev.
@@ -37,12 +37,12 @@ development_status:
   3-4-archive-view: done
 
   # ── Epic 4: Event Detail + SEO ────────────────────────────────────────────
-  4-1-event-detail-e2e-specs: review
-  4-2-event-detail-page-schema-og-sitemap: review
+  4-1-event-detail-e2e-specs: done
+  4-2-event-detail-page-schema-og-sitemap: done
 
   # ── Epic 5: Data Pipeline ─────────────────────────────────────────────────
-  5-1-data-transformation-unit-tests: not-started
-  5-2-google-sheets-service-account-api: not-started
+  5-1-data-transformation-unit-tests: done
+  5-2-google-sheets-service-account-api: done
   5-3-swap-mock-data-for-real-data: not-started
 
   # ── Epic 6: Build Pipeline & Production ───────────────────────────────────

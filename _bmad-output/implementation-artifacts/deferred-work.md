@@ -10,6 +10,12 @@
 - `endTime: null` render-path coverage — fixture covers the shape but rendering behavior not tested; address in story 2-2 (event card template).
 
 
+## Deferred from: code review of 5-2-google-sheets-service-account-api (2026-06-14)
+
+- `generateUniqueSlug` caller responsible for `usedSlugs.add(id)` — valid design choice, correctly used in events.js; any future callers must remember the external add.
+- No timeout/retry on Sheets API call — build could hang on network failure; acceptable for build-time fetch, revisit if CI timeouts become a problem.
+- Service account private key (wcs-community-events) was visible in review conversation context — consider rotating the key as a precaution.
+
 ## Deferred from: code review of 1-1-eleventy-project-initialization (2026-06-13)
 
 - `isToday`/`isPast` are static booleans in mock data — stale after build day. Address in story 1-2 data model (compute flags dynamically from event date vs current date).

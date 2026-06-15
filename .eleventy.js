@@ -8,6 +8,7 @@ const byDateAndTime = (a, b) => {
 export default function(eleventyConfig) {
   eleventyConfig.ignores.add("_bmad-output/**");
   eleventyConfig.ignores.add(".claude/**");
+  eleventyConfig.ignores.add("_data/events.js"); // Ignore real events.js until Story 5.3
 
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("robots.txt");
