@@ -26,7 +26,7 @@ test('selecting Social Dancing filter hides non-matching cards', async ({ page }
 
 test('selecting Beginner-friendly signal filter hides non-matching cards', async ({ page }) => {
   await page.goto('/browse/');
-  const bfCount = await page.locator('.event-card[data-fit-signals~="beginner-friendly"]').count();
+  const bfCount = await page.locator('.event-card[data-fit-signals*="beginner-friendly"]').count();
   await expandFilters(page);
   await page.getByRole('checkbox', { name: /beginner-friendly/i }).check();
   await expect(page.locator('.event-card:not([hidden])')).toHaveCount(bfCount);
@@ -35,7 +35,7 @@ test('selecting Beginner-friendly signal filter hides non-matching cards', async
 test('applying type=workshop AND signal=skill-level-target shows only matching cards', async ({ page }) => {
   await page.goto('/browse/');
   const matchCount = await page.locator(
-    '.event-card[data-event-type="workshop"][data-fit-signals~="skill-level-target"]'
+    '.event-card[data-event-type="workshop"][data-fit-signals*="skill-level-target"]'
   ).count();
   await expandFilters(page);
   await page.getByRole('checkbox', { name: /workshop/i }).check();
