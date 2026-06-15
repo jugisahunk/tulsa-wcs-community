@@ -88,6 +88,7 @@ export default async function(eleventyConfig) {
       includes: "_includes",
       data: "_data"
     },
+    pathPrefix: process.env.GITHUB_PAGES === 'true' ? "/tulsa-wcs-community/" : "/",
     templateFormats: ["njk", "html"],
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk"

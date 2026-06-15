@@ -4,7 +4,7 @@ permalink: /browse/index.html
 {% extends "base.njk" %}
 
 {% block head %}
-<link rel="stylesheet" href="/assets/css/browse-filters.css">
+<link rel="stylesheet" href="{{ '/assets/css/browse-filters.css' | url }}">
 {% endblock %}
 
 {% block content %}
@@ -25,5 +25,5 @@ permalink: /browse/index.html
 {% endblock %}
 
 {% block scripts %}
-<script src="/assets/js/browse-filter.js" defer></script>
+<script src="{{ '/assets/js/browse-filter.js' | url }}" defer></script>
 {% endblock %}

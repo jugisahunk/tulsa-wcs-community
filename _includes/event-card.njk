@@ -1,5 +1,5 @@
 <a class="event-card"
-   href="/events/{{ event.id }}/"
+   href="{{ ('/events/' ~ event.id ~ '/') | url }}"
    data-event-type="{{ event.eventType | eventTypeToKebab }}"
    data-fit-signals="{{ event.fitSignals | fitSignalsToKebab }}"
    data-event-date="{{ event.date }}"

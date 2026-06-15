@@ -8,7 +8,7 @@ permalink: "events/{{ event.id }}/index.html"
 {% extends "base.njk" %}
 
 {% block head %}
-<link rel="stylesheet" href="/assets/css/event-detail.css">
+<link rel="stylesheet" href="{{ '/assets/css/event-detail.css' | url }}">
 {% endblock %}
 
 {% block schema %}

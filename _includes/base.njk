@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/base.css">
-  <link rel="stylesheet" href="/assets/css/event-card.css">
+  <link rel="stylesheet" href="{{ '/assets/css/base.css' | url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/event-card.css' | url }}">
   <!-- TODO: Replace with analytics embed snippet from chosen provider (see NOTES.md for options) -->
   {% block head %}{% endblock %}
   {% block schema %}{% endblock %}
@@ -16,7 +16,7 @@
 </head>
 <body>
   <header class="site-header">
-    <a href="/" class="site-header__title">{{ site.name }}</a>
+    <a href="{{ '/' | url }}" class="site-header__title">{{ site.name }}</a>
   </header>
 
   <main class="site-main">
@@ -24,9 +24,9 @@
   </main>
 
   <nav class="tab-bar" aria-label="Main navigation">
-    <a href="/" class="tab-bar__tab" {% if page.url == "/" %}aria-current="page"{% endif %}>tonight</a>
-    <a href="/browse/" class="tab-bar__tab" {% if page.url == "/browse/" %}aria-current="page"{% endif %}>browse</a>
-    <a href="/archive/" class="tab-bar__tab" {% if page.url == "/archive/" %}aria-current="page"{% endif %}>archive</a>
+    <a href="{{ '/' | url }}" class="tab-bar__tab" {% if page.url == "/" %}aria-current="page"{% endif %}>tonight</a>
+    <a href="{{ '/browse/' | url }}" class="tab-bar__tab" {% if page.url == "/browse/" %}aria-current="page"{% endif %}>browse</a>
+    <a href="{{ '/archive/' | url }}" class="tab-bar__tab" {% if page.url == "/archive/" %}aria-current="page"{% endif %}>archive</a>
   </nav>
 
   <footer class="site-footer">
