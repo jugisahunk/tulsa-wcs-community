@@ -6,7 +6,7 @@ baseline_commit: 69741a08e51a9035eaf4f0c3582986a8a5a1447d
 
 # Story 6.2: Google Apps Script Form Trigger
 
-Status: review
+Status: done
 
 ## Story
 
@@ -161,3 +161,10 @@ claude-sonnet-4-6
 
 - scripts/google-apps-script.js (created)
 - NOTES.md (updated — appended 6.2 section)
+
+### Review Findings
+
+- [x] [Review][Patch] Change `ref: 'main'` → `ref: 'master'` in GAS dispatch [scripts/google-apps-script.js:15] — fixed
+- [x] [Review][Patch] `GITHUB_TOKEN` null-guard missing [scripts/google-apps-script.js:5] — fixed: throws if property not set
+- [x] [Review][Patch] Non-2xx GitHub API responses silently swallowed [scripts/google-apps-script.js:19-20] — fixed: logs code + throws on non-2xx
+- [x] [Review][Defer] Concurrent form submissions trigger redundant workflow runs with no deduplication [scripts/google-apps-script.js] — deferred, pre-existing

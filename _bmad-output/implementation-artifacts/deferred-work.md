@@ -21,6 +21,14 @@
 - No timeout/retry on Sheets API call — build could hang on network failure; acceptable for build-time fetch, revisit if CI timeouts become a problem.
 - Service account private key (wcs-community-events) was visible in review conversation context — consider rotating the key as a precaution.
 
+## Deferred from: code review of Epic 6 (6-1, 6-2, 6-3) (2026-06-14)
+
+- **6-1** `GOOGLE_SERVICE_ACCOUNT_JSON` unavailable in fork PRs — secrets not exposed to fork-triggered workflows; no forks expected on this personal repo, acceptable as-is.
+- **6-1** Deploy runs even if Eleventy emits an empty `_site` — Eleventy exits non-zero on hard failures; empty-output-without-error is a very unlikely edge case.
+- **6-1** `--with-deps` reinstalls apt packages on every run — system deps from `playwright install --with-deps` are not cached; costs ~1–2 min per run but caching system deps is complex.
+- **6-1** Playwright cache key hashes `package-lock.json` only — minor Playwright browser version bumps within the same package version would use stale cached browsers; low-probability edge case.
+- **6-2** Concurrent form submissions trigger redundant workflow runs — no rate-limit or dedup guard; harmless for a low-traffic community site.
+
 ## Deferred from: code review of 1-1-eleventy-project-initialization (2026-06-13)
 
 - `isToday`/`isPast` are static booleans in mock data — stale after build day. Address in story 1-2 data model (compute flags dynamically from event date vs current date).

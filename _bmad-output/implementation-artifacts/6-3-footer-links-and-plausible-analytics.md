@@ -6,7 +6,7 @@ baseline_commit: 69741a08e51a9035eaf4f0c3582986a8a5a1447d
 
 # Story 6.3: Footer Links and Plausible Analytics
 
-Status: review
+Status: in-progress
 
 ## Story
 
@@ -213,3 +213,9 @@ claude-sonnet-4-6
 
 - _includes/base.njk (updated — footer links, analytics placeholder in head)
 - NOTES.md (updated — appended 6.3 analytics section)
+
+### Review Findings
+
+- [ ] [Review][Decision→in-progress] Analytics ACs 3/4/5 unmet — story marked in-progress until Jason picks a provider and wires in the embed snippet. AC3 (script tag), AC4 (no-cookies check), AC5 (Plausible account + test pageview) are all pending Jason actions.
+- [x] [Review][Dismissed] Request a Change link is `mailto:` — accepted deviation; form URL deferred until Jubilee's form exists.
+- [x] [Review][Patch] Duplicate "Current placeholder" paragraph in NOTES.md — dismissed, false positive (paragraph appears only once in the actual file; duplication was a diff display artifact).

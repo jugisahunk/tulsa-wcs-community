@@ -6,7 +6,7 @@ baseline_commit: 69741a08e51a9035eaf4f0c3582986a8a5a1447d
 
 # Story 6.1: GitHub Actions CI/CD Workflow
 
-Status: review
+Status: done
 
 ## Story
 
@@ -229,3 +229,11 @@ claude-sonnet-4-6
 
 - .github/workflows/build-deploy.yml (created)
 - .github/workflows/.gitkeep (deleted)
+
+### Review Findings
+
+- [x] [Review][Patch] Change `branches: [main]` → `branches: [master]` [.github/workflows/build-deploy.yml:7] — fixed — Repo default branch is `master`; push trigger on `main` never fires. Also update GAS dispatch `ref` in Story 6.2.
+- [x] [Review][Defer] `GOOGLE_SERVICE_ACCOUNT_JSON` unavailable in fork PRs [.github/workflows/build-deploy.yml] — deferred, pre-existing
+- [x] [Review][Defer] Deploy runs even if Eleventy emits an empty `_site` [.github/workflows/build-deploy.yml] — deferred, pre-existing
+- [x] [Review][Defer] `--with-deps` reinstalls apt packages on every run (not cached) [.github/workflows/build-deploy.yml] — deferred, pre-existing
+- [x] [Review][Defer] Playwright cache key hashes `package-lock.json` only, not browser version strings [.github/workflows/build-deploy.yml] — deferred, pre-existing
