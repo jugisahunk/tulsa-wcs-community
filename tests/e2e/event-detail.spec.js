@@ -41,9 +41,9 @@ test.describe('event detail page', () => {
     expect(response.status()).toBe(200);
   });
 
-  test('h1 contains the event name', async ({ page }) => {
-    const h1 = page.locator('h1');
-    await expect(h1).not.toBeEmpty();
+  test('event title heading is present and non-empty', async ({ page }) => {
+    const title = page.locator('.event-detail__title');
+    await expect(title).not.toBeEmpty();
   });
 
   test('page shows formatted date, venue name, and cost', async ({ page }) => {
@@ -74,9 +74,9 @@ test.describe('event detail page', () => {
   });
 
   test('og:title is present and contains the event name', async ({ page }) => {
-    const h1 = await page.locator('h1').textContent();
+    const eventTitle = await page.locator('.event-detail__title').textContent();
     const ogTitle = await page.locator('meta[property="og:title"]').getAttribute('content');
-    expect(ogTitle).toContain(h1.trim());
+    expect(ogTitle).toContain(eventTitle.trim());
   });
 
   test('og:description is present and non-empty', async ({ page }) => {
