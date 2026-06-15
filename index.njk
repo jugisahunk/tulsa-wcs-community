@@ -1,18 +1,7 @@
 {% extends "base.njk" %}
 {% block content %}
 
-<section class="hero">
-  <div aria-hidden="true" class="double-rule-ornament">
-    <div class="rule"></div>
-    <div class="rule"></div>
-  </div>
-  <h1 class="hero__title">West Coast Swing in Tulsa</h1>
-  <div aria-hidden="true" class="double-rule-ornament">
-    <div class="rule"></div>
-    <div class="rule"></div>
-  </div>
-  <p class="tonight-label">tonight</p>
-</section>
+<p class="tonight-label">tonight</p>
 
 {% if collections.todayEvents.length %}
   <div class="event-list">

@@ -46,7 +46,7 @@ permalink: "events/{{ event.id }}/index.html"
 <article class="event-detail">
   <header class="event-detail__header">
     <div class="event-detail__type-badge">{{ event.eventType }}</div>
-    <h1 class="event-detail__title">{{ event.name }}</h1>
+    <h2 class="event-detail__title">{{ event.name }}</h2>
     {% if event.isRecurring %}
     <span class="recurring-badge">recurring</span>
     {% endif %}

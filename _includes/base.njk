@@ -15,11 +15,18 @@
   {% block meta %}{% endblock %}
 </head>
 <body>
-  <header class="site-header">
-    <a href="{{ '/' | url }}" class="site-header__title">{{ site.name }}</a>
-  </header>
-
   <main class="site-main">
+    <section class="hero">
+      <div aria-hidden="true" class="double-rule-ornament">
+        <div class="rule"></div>
+        <div class="rule"></div>
+      </div>
+      <h1 class="hero__title">{{ site.name }}</h1>
+      <div aria-hidden="true" class="double-rule-ornament">
+        <div class="rule"></div>
+        <div class="rule"></div>
+      </div>
+    </section>
     {% block content %}{% endblock %}
   </main>
 
