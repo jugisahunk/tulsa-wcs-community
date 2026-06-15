@@ -1,17 +1,28 @@
-import events from './_data/events.mock.js';
+import 'dotenv/config';
 
 const byDateAndTime = (a, b) => {
   const dateCmp = a.date.localeCompare(b.date);
   return dateCmp !== 0 ? dateCmp : a.startTime.localeCompare(b.startTime);
 };
 
-export default function(eleventyConfig) {
+export default async function(eleventyConfig) {
   eleventyConfig.ignores.add("_bmad-output/**");
   eleventyConfig.ignores.add(".claude/**");
-  eleventyConfig.ignores.add("_data/events.js"); // Ignore real events.js until Story 5.3
-
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("robots.txt");
+
+  // Set USE_MOCK_DATA=true in .env for local dev without credentials.
+  // Omit (or set to anything other than 'true') to use real Google Sheets data.
+  const useMockData = process.env.USE_MOCK_DATA === 'true';
+  let eventsModule;
+  try {
+    eventsModule = useMockData
+      ? (await import('./_data/events.mock.js')).default
+      : (await import('./_lib/events.js')).default;
+  } catch (e) {
+    throw new Error(`Failed to load events module: ${e.message}`);
+  }
+  const events = typeof eventsModule === 'function' ? await eventsModule() : eventsModule;
 
   eleventyConfig.addCollection('events', () =>
     [...events].sort(byDateAndTime)

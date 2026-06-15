@@ -2,8 +2,9 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import configFn from '../../.eleventy.js';
 
 const filters = {};
-beforeAll(() => {
-  configFn({
+beforeAll(async () => {
+  process.env.USE_MOCK_DATA = 'true';
+  await configFn({
     ignores: { add: () => {} },
     addPassthroughCopy: () => {},
     addCollection: () => {},

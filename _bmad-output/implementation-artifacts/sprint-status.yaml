@@ -7,7 +7,7 @@
 #   done:         Reviewed and accepted
 
 project: wcs-events
-last_updated: 2026-06-14  # Epic 4 done; Epic 5 in progress (5-1 done, 5-2 ready)
+last_updated: 2026-06-14  # Epic 5 done; Epic 6 ready
 
 # Epic 1 runs SERIALLY — all other epics block on this epic being done.
 # After each Story 1.x is reviewed + approved, advance the next to ready-for-dev.
@@ -43,7 +43,7 @@ development_status:
   # ── Epic 5: Data Pipeline ─────────────────────────────────────────────────
   5-1-data-transformation-unit-tests: done
   5-2-google-sheets-service-account-api: done
-  5-3-swap-mock-data-for-real-data: not-started
+  5-3-swap-mock-data-for-real-data: done
 
   # ── Epic 6: Build Pipeline & Production ───────────────────────────────────
   6-1-github-actions-cicd: not-started

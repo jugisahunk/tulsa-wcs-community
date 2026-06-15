@@ -10,6 +10,11 @@
 - `endTime: null` render-path coverage — fixture covers the shape but rendering behavior not tested; address in story 2-2 (event card template).
 
 
+## Deferred from: code review of 5-3-swap-mock-data-for-real-data (2026-06-14)
+
+- `NOTES.md` not updated with USE_MOCK_DATA documentation (Task 4.1) — low priority, address before or during Epic 6.
+- Non-array/non-function module export in `.eleventy.js` has no guard — defensive check beyond current scope.
+
 ## Deferred from: code review of 5-2-google-sheets-service-account-api (2026-06-14)
 
 - `generateUniqueSlug` caller responsible for `usedSlugs.add(id)` — valid design choice, correctly used in events.js; any future callers must remember the external add.
