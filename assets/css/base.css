@@ -96,3 +96,30 @@ main.site-main {
   color: var(--color-text-primary);
   border-top-color: var(--color-gold-tab-active);
 }
+
+.site-footer {
+  padding: var(--space-lg) var(--page-margin);
+  padding-bottom: calc(var(--tab-bar-height) + var(--space-lg));
+  border-top: 1px solid var(--color-surface-border);
+}
+
+.site-footer__attribution {
+  margin: 0 0 var(--space-sm);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.site-footer__links {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.site-footer__link {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.site-footer__link:hover {
+  color: var(--color-text-primary);
+}
