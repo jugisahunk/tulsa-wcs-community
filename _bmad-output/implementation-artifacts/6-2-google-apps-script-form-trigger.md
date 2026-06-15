@@ -1,112 +1,163 @@
 ---
 story_key: 6-2-google-apps-script-form-trigger
-status: not-started
+status: review
+baseline_commit: 69741a08e51a9035eaf4f0c3582986a8a5a1447d
 ---
 
 # Story 6.2: Google Apps Script Form Trigger
+
+Status: review
 
 ## Story
 
 As an event organizer,
 I want my Google Form submission to automatically trigger a site rebuild,
-So that my event goes live within minutes without any action from Jason.
+so that my event goes live within minutes without any action from Jason.
 
 ## Acceptance Criteria
 
-**Given** `scripts/google-apps-script.js` (stored in repo for version control; deployed manually to Google Apps Script)
-**When** a Google Form is submitted
-**Then** the script calls the GitHub Actions `workflow_dispatch` API to trigger `build-deploy.yml`
+1. **Given** `scripts/google-apps-script.js` (stored in repo for version control; deployed manually to Google Apps Script)  
+   **When** a Google Form is submitted  
+   **Then** the script calls the GitHub Actions `workflow_dispatch` API to trigger `build-deploy.yml` on the `main` branch of `jugisahunk/tulsa-wcs-community`
 
-**And** the script uses `GITHUB_TOKEN` stored as a Google Apps Script script property (not hardcoded)
+2. **And** the script uses `GITHUB_TOKEN` stored as a Google Apps Script script property — never hardcoded in the file
 
-**And** the script is ~20 lines or fewer
+3. **And** the script is ~20 lines or fewer
 
-**And** `NOTES.md` documents the manual deployment steps for this script
+4. **And** `NOTES.md` documents the manual deployment steps for this script
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `scripts/google-apps-script.js`
-  - [ ] 1.1: Write the `onFormSubmit` trigger function:
-    ```js
-    // Google Apps Script — runs in Google's V8 environment, NOT Node.js
-    // Deploy manually to Google Apps Script editor; do NOT run with npm/node
-    // Set GITHUB_TOKEN as a Script Property in the Apps Script editor
+- [x] Task 1: Create `scripts/google-apps-script.js`
+  - [x] 1.1: Delete `scripts/.gitkeep` placeholder
+  - [x] 1.2: Write the script file (exact content in Dev Notes — do NOT deviate)
+  - [x] 1.3: Confirm: no `import`/`require`, no `async`/`await`, uses `UrlFetchApp` not `fetch`
 
-    const GITHUB_OWNER = 'YOUR_GITHUB_USERNAME';
-    const GITHUB_REPO = 'wcs-events';
-    const WORKFLOW_FILE = 'build-deploy.yml';
+- [x] Task 2: Update `NOTES.md` with deployment instructions
+  - [x] 2.1: Add the "Google Apps Script — Form Trigger (Story 6.2)" section from Dev Notes
+  - [x] 2.2: Append to the existing `NOTES.md` content — do not replace or reorder existing sections
 
-    function onFormSubmit() {
-      const token = PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
-      const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILE}/dispatches`;
-      const options = {
-        method: 'post',
-        contentType: 'application/json',
-        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' },
-        payload: JSON.stringify({ ref: 'main' }),
-        muteHttpExceptions: true
-      };
-      const response = UrlFetchApp.fetch(url, options);
-      Logger.log(`GitHub API response: ${response.getResponseCode()} ${response.getContentText()}`);
-    }
-    ```
-  - [ ] 1.2: Fill in `GITHUB_OWNER` with the actual GitHub username/org
-  - [ ] 1.3: Verify the script is ≤20 lines of functional code (comments excluded from count)
-  - [ ] 1.4: Add a comment at the top: `// Google Apps Script — runs in Google's V8 environment, NOT Node.js`
-
-- [ ] Task 2: Update `NOTES.md` with manual deployment instructions
-  - [ ] 2.1: Document step-by-step how to deploy:
-    1. Open the Google Form in Google Drive
-    2. In the Form, open the Script editor (Extensions → Apps Script)
-    3. Paste the contents of `scripts/google-apps-script.js` into the editor
-    4. In Apps Script: Project Settings → Script properties → Add `GITHUB_TOKEN` property (value: a GitHub PAT with `workflow` scope)
-    5. In Apps Script: Add a trigger: "onFormSubmit" → "On form submit"
-    6. Save and authorize the script
-  - [ ] 2.2: Document the GitHub PAT requirements: needs `workflow` scope; use a fine-grained PAT scoped to just this repository
-
-- [ ] Task 3: Deploy and test (Jason action required)
-  - [ ] 3.1: Jason deploys the script per `NOTES.md` instructions
-  - [ ] 3.2: Submit a test form entry
-  - [ ] 3.3: Verify GitHub Actions workflow triggered (check Actions tab in GitHub)
-  - [ ] 3.4: Document test result in Completion Notes
+- [x] Task 3: No automated tests for this story
+  - [x] 3.1: The script uses GAS built-ins (`UrlFetchApp`, `PropertiesService`) that don't exist in Node.js — unit testing is not possible
+  - [x] 3.2: Manual verification (Task 3 in original stub) is a Jason action, not a dev agent action
+  - [x] 3.3: Mark complete once the file is written and NOTES.md is updated
 
 ## Dev Notes
 
-### Google Apps Script Environment
+### The Script (write this exactly)
 
-`scripts/google-apps-script.js` is stored in the Git repo for version control only. It CANNOT be run with `node` or `npm`. It runs in Google's V8 engine inside the Apps Script editor in Google Drive.
+```javascript
+// Google Apps Script — runs in Google's V8 environment, NOT Node.js.
+// Deploy manually: open Google Form → Extensions → Apps Script → paste this file.
+// Set GITHUB_TOKEN as a Script Property (Project Settings → Script Properties).
+// Add trigger: onFormSubmit → From form → On form submit.
+function onFormSubmit() {
+  const token = PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
+  const url = 'https://api.github.com/repos/jugisahunk/tulsa-wcs-community/actions/workflows/build-deploy.yml/dispatches';
+  const options = {
+    method: 'post',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    },
+    payload: JSON.stringify({ ref: 'main' }),
+    contentType: 'application/json',
+    muteHttpExceptions: true
+  };
+  const response = UrlFetchApp.fetch(url, options);
+  Logger.log(response.getResponseCode() + ': ' + response.getContentText());
+}
+```
 
-Key differences from Node.js:
-- `UrlFetchApp` replaces `fetch`/`axios` for HTTP requests
-- `PropertiesService` replaces `process.env` for secrets
-- `Logger.log` replaces `console.log`
-- No `import`/`require` — all Google APIs are globally available
-- No `async`/`await` — `UrlFetchApp.fetch` is synchronous
+### Critical: GAS Runtime vs Node.js
 
-### GitHub PAT vs `GITHUB_TOKEN`
+`scripts/google-apps-script.js` is in the repo for version control only. It is **never run by Node.js or npm**. The file must use GAS V8 built-ins:
 
-The built-in `GITHUB_TOKEN` in GitHub Actions cannot be used to trigger `workflow_dispatch` from external scripts (it can only be used within a workflow itself). Use a Personal Access Token (PAT) with `workflow` scope. Store it as a Google Apps Script script property named `GITHUB_TOKEN`.
+| Node.js | GAS equivalent |
+|---------|----------------|
+| `fetch()` / `axios` | `UrlFetchApp.fetch()` — synchronous |
+| `process.env.X` | `PropertiesService.getScriptProperties().getProperty('X')` |
+| `console.log()` | `Logger.log()` |
+| `require()` / `import` | Not available — everything is globally injected |
+| `async`/`await` | Not needed — GAS HTTP calls are synchronous |
 
-### Trigger Type
+Do not add `import`, `require`, `async`, or `await`. The existing comments in the script file make the runtime context clear.
 
-The Google Form's Apps Script trigger should be an "On form submit" installable trigger bound to the form, not a simple trigger. Installable triggers run under the owner's authorization and can make external HTTP requests.
+### Critical: This is a PAT, Not the Actions GITHUB_TOKEN
 
-### ~20 Lines Constraint
+The `GITHUB_TOKEN` secret that GitHub Actions auto-injects into workflows **cannot trigger `workflow_dispatch` from external scripts** — it only works inside an already-running workflow. Jason needs a **Personal Access Token (PAT)**:
 
-The AC says "~20 lines or fewer". The implementation above is within this budget. Do not add error recovery, retry logic, or additional features — keep it minimal.
+- Classic PAT: scope = `workflow`
+- Fine-grained PAT: repository `tulsa-wcs-community`, permission `Actions: write`
+
+Jason creates it at GitHub → Settings → Developer settings → Personal access tokens. He stores the value as the `GITHUB_TOKEN` script property in the Google Apps Script editor (Project Settings → Script Properties → Add property). The property name `GITHUB_TOKEN` is the key the script reads at line 2.
+
+### Form Trigger Must Be Set Manually
+
+The function name `onFormSubmit` alone does **not** wire it to the form — Google Apps Script has two types of triggers:
+
+- **Simple triggers** (e.g., `onOpen`) — fire automatically by name convention
+- **Installable triggers** — must be created explicitly; required for external HTTP calls
+
+Jason must create an installable trigger:
+1. Apps Script editor → Triggers (clock icon, left sidebar)
+2. Add Trigger → `onFormSubmit` → Event source: From form → Event type: On form submit
+3. Save → authorize when prompted (Google will request permission to call external URLs)
+
+### NOTES.md Section to Append
+
+Add this exact section at the end of `NOTES.md`:
+
+```markdown
+---
+
+## Google Apps Script — Form Trigger (Story 6.2)
+
+The script at `scripts/google-apps-script.js` triggers a GitHub Actions rebuild when a Google Form is submitted.
+
+**This script is NOT run by Node.js.** Manual deployment steps:
+
+1. Open the event submission Google Form → Extensions → Apps Script
+2. Replace the default `myFunction` with the contents of `scripts/google-apps-script.js`
+3. In Project Settings → Script Properties, add property: `GITHUB_TOKEN` = a GitHub PAT with `Actions: write` access (or `workflow` scope on a classic PAT) for `jugisahunk/tulsa-wcs-community`
+4. In the Triggers panel (clock icon), add trigger: `onFormSubmit` → From form → On form submit
+5. Authorize the script when prompted
+
+**To verify:** Submit a test form entry. Check the Apps Script Executions panel for a `200`-series response. Confirm the GitHub Actions tab shows a new workflow run triggered.
+```
+
+### Project Structure: Files to Create/Modify
+
+| Action | Path | Notes |
+|--------|------|-------|
+| DELETE | `scripts/.gitkeep` | Placeholder — remove |
+| CREATE | `scripts/google-apps-script.js` | Complete deliverable |
+| UPDATE | `NOTES.md` | Append deployment section |
+
+### References
+
+- [Source: `_bmad-output/planning-artifacts/epics.md#Story 6.2`]
+- [Source: `_bmad-output/planning-artifacts/architecture.md#Infrastructure & Deployment`] — `workflow_dispatch` trigger, `GITHUB_TOKEN` as script property
+- Story 6.1 creates `.github/workflows/build-deploy.yml` with `workflow_dispatch` trigger — this story calls it via the GitHub API
 
 ## Dev Agent Record
 
-### Implementation Plan
+### Agent Model Used
 
-### Debug Log
+claude-sonnet-4-6
 
-### Completion Notes
+### Debug Log References
 
-## File List
+### Completion Notes List
 
-## Change Log
+- Created `scripts/google-apps-script.js` with exact GAS V8 script from Dev Notes — uses `UrlFetchApp`, `PropertiesService`, `Logger.log`; no Node.js imports
+- Deleted `scripts/.gitkeep` placeholder
+- Appended "Google Apps Script — Form Trigger (Story 6.2)" section to `NOTES.md` with full manual deployment steps
+- No automated tests possible: GAS built-ins are not available in Node.js environment
+- **Jason must complete manually:** deploy script to Google Apps Script, set `GITHUB_TOKEN` script property (PAT with `Actions: write`), add `onFormSubmit` installable trigger, verify with test form submission
 
-## Status
+### File List
 
-not-started
+- scripts/google-apps-script.js (created)
+- NOTES.md (updated — appended 6.2 section)

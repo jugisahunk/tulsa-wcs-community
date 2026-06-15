@@ -166,3 +166,38 @@ Store in data model as display form; convert to kebab for `data-*` and URL param
 | Skill level target | `skill-level-target` |
 | Instructor present | `instructor-present` |
 | Special guest present | `special-guest-present` |
+
+---
+
+## Google Apps Script — Form Trigger (Story 6.2)
+
+The script at `scripts/google-apps-script.js` triggers a GitHub Actions rebuild when a Google Form is submitted.
+
+**This script is NOT run by Node.js.** Manual deployment steps:
+
+1. Open the event submission Google Form → Extensions → Apps Script
+2. Replace the default `myFunction` with the contents of `scripts/google-apps-script.js`
+3. In Project Settings → Script Properties, add property: `GITHUB_TOKEN` = a GitHub PAT with `Actions: write` access (or `workflow` scope on a classic PAT) for `jugisahunk/tulsa-wcs-community`
+4. In the Triggers panel (clock icon), add trigger: `onFormSubmit` → From form → On form submit
+5. Authorize the script when prompted
+
+**To verify:** Submit a test form entry. Check the Apps Script Executions panel for a `200`-series response. Confirm the GitHub Actions tab shows a new workflow run triggered.
+
+---
+
+## Analytics — Cookieless Telemetry (Story 6.3)
+
+Cookieless analytics is active from the first deploy. No consent banner required.
+
+**Current placeholder:** `_includes/base.njk` contains a `<script>` tag with `data-domain="TODO_PLAUSIBLE_DOMAIN"` — replace this with the real domain value once an analytics provider is chosen and configured.
+
+**Options (all cookieless, GDPR-friendly):**
+
+| Option | Cost | Hosting | Embed |
+|--------|------|---------|-------|
+| Plausible Analytics | ~$9/mo after trial | Cloud | `<script defer data-domain="DOMAIN" src="https://plausible.io/js/script.js"></script>` |
+| Cloudflare Web Analytics | Free | Cloud (Cloudflare account) | `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "TOKEN"}'></script>` |
+| GoatCounter | Free (personal/non-commercial) | Cloud (goatcounter.com) | `<script data-goatcounter="https://ACCOUNT.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>` |
+| Umami | Free | Self-hosted on Railway free tier | `<script async src="https://UMAMI_HOST/script.js" data-website-id="ID"></script>` |
+
+**To swap in the real tag:** Replace the `<script ... src="https://plausible.io/js/script.js"></script>` line in `_includes/base.njk` `<head>` with the embed snippet from your chosen provider.
